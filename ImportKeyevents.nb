@@ -1,0 +1,260 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     10650,        251]
+NotebookOptionsPosition[      9808,        217]
+NotebookOutlinePosition[     10337,        240]
+CellTagsIndexPosition[     10252,        235]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"windowSize", "=", 
+   RowBox[{"{", 
+    RowBox[{"800", ",", "600"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"playerLocation", "=", 
+   RowBox[{"{", 
+    RowBox[{"350", ",", "350"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FindFile", "[", "\"\<KeyEvents.m\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", " ", "KeyEvents.m"}]}], "Input",
+ CellChangeTimes->{{3.6057933741215487`*^9, 3.6057934051717367`*^9}, {
+  3.605793840409429*^9, 3.605793848963891*^9}, {3.605793979607914*^9, 
+  3.6057940159814577`*^9}, {3.6058170442742157`*^9, 3.605817073748149*^9}, {
+  3.606320783258047*^9, 3.6063207848324413`*^9}, {3.6063218937222347`*^9, 
+  3.6063218992004433`*^9}, {3.6063219995002604`*^9, 3.606322002404636*^9}, {
+  3.606322321842938*^9, 3.606322329192668*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"drawScene", "[", "]"}], ":=", 
+   RowBox[{"DynamicModule", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Dynamic", "[", 
+      RowBox[{"Show", "[", 
+       RowBox[{"drawPlayer", "[", "]"}], "]"}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"drawPlayer", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Return", "[", 
+     RowBox[{"Graphics", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"PointSize", "[", "Large", "]"}], ",", "Orange", ",", 
+         RowBox[{"Dynamic", "[", 
+          RowBox[{"Point", "[", "playerLocation", "]"}], "]"}]}], "}"}], ",", 
+       
+       RowBox[{"PlotRange", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{"windowSize", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{"windowSize", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}], "}"}]}], ",", 
+       RowBox[{"ImageSize", "\[Rule]", "windowSize"}]}], "]"}], "]"}]}], 
+   "\[IndentingNewLine]", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.605816789942665*^9, 3.605816827973061*^9}, {
+   3.605817030107752*^9, 3.60581703137534*^9}, {3.605817127880991*^9, 
+   3.6058171294492188`*^9}, {3.6058171842500553`*^9, 3.605817213534638*^9}, 
+   3.605817266089641*^9, {3.6058173124063377`*^9, 3.605817315444497*^9}, 
+   3.605817422511857*^9, {3.605817476953179*^9, 3.605817481190258*^9}, {
+   3.605817522304627*^9, 3.6058175588034*^9}, {3.606230032919442*^9, 
+   3.6062300372518177`*^9}, {3.606230210783894*^9, 3.6062302242793407`*^9}, {
+   3.6062302577704067`*^9, 3.6062302959176903`*^9}, {3.606230343999892*^9, 
+   3.606230355631578*^9}, {3.60632019211791*^9, 3.606320193724334*^9}, {
+   3.606320390693832*^9, 3.6063204133989143`*^9}, {3.606320449498116*^9, 
+   3.606320451408477*^9}, {3.606320491651567*^9, 3.606320492680756*^9}, {
+   3.606320604481361*^9, 3.606320630180484*^9}, {3.6063207431672153`*^9, 
+   3.606320743581949*^9}, {3.606321721255247*^9, 3.6063217251338797`*^9}, 
+   3.606321871780879*^9, {3.606321929035592*^9, 3.6063219317454367`*^9}, {
+   3.606321974972704*^9, 3.6063219927522783`*^9}, {3.60632214536924*^9, 
+   3.6063221457692204`*^9}, {3.606322246303215*^9, 3.606322300395453*^9}}],
+
+Cell[BoxData[
+ RowBox[{"initJLink", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.6058006028899*^9, 3.6058006059593697`*^9}, 
+   3.605804159122181*^9, {3.6058045610183897`*^9, 3.6058045630482073`*^9}, 
+   3.605804704828725*^9}],
+
+Cell[BoxData[
+ RowBox[{"initWindow", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.6058112780280647`*^9, 3.605811280305785*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"startGame", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"CreateDocument", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"drawScene", "[", "]"}], ",", 
+        RowBox[{"Background", "\[Rule]", "Cyan"}], ",", 
+        RowBox[{"Selectable", "\[Rule]", "False"}], ",", 
+        RowBox[{"Editable", "\[Rule]", "False"}]}], "]"}], ",", 
+      RowBox[{"CellMargins", "\[Rule]", "0"}], ",", 
+      RowBox[{"ShowCellBracket", "\[Rule]", "False"}], ",", 
+      RowBox[{"ShowCellLabel", "\[Rule]", "False"}], ",", 
+      RowBox[{"\"\<TrackCellChangeTimes\>\"", "\[Rule]", "False"}], ",", 
+      RowBox[{"WindowElements", "\[Rule]", 
+       RowBox[{"{", "}"}]}], ",", 
+      RowBox[{"WindowFrameElements", "\[Rule]", 
+       RowBox[{"{", "\"\<CloseBox\>\"", "}"}]}], ",", 
+      RowBox[{"WindowFrame", "\[Rule]", "\"\<Generic\>\""}], ",", 
+      RowBox[{"\"\<BlinkingCellInsertionPoint\>\"", "\[Rule]", "False"}], ",", 
+      RowBox[{"\"\<CellInsertionPointCell\>\"", "\[Rule]", 
+       RowBox[{"{", "}"}]}], ",", 
+      RowBox[{"WindowSize", "\[Rule]", "All"}], ",", 
+      RowBox[{"WindowMargins", "\[Rule]", "Automatic"}], ",", 
+      RowBox[{"WindowTitle", "\[Rule]", "\"\<Space Chase\>\""}], ",", 
+      RowBox[{"Background", "\[Rule]", "White"}], ",", 
+      RowBox[{"Editable", "\[Rule]", "False"}], ",", 
+      RowBox[{"Deployed", "\[Rule]", "True"}]}], "]"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.605563854103084*^9, 3.605563938332551*^9}, {
+   3.605564208794002*^9, 3.605564211289432*^9}, {3.60556426985599*^9, 
+   3.605564356221196*^9}, {3.605564407222568*^9, 3.605564435112349*^9}, {
+   3.605564751659602*^9, 3.605564755807786*^9}, {3.605565004702601*^9, 
+   3.605565063492714*^9}, {3.60556509646802*^9, 3.60556512323981*^9}, {
+   3.606230044893126*^9, 3.606230051333507*^9}, {3.606230128502901*^9, 
+   3.6062301293490057`*^9}, {3.606320976099333*^9, 3.60632099443466*^9}, {
+   3.606321053502948*^9, 3.606321080228641*^9}, {3.6063213051282988`*^9, 
+   3.606321335947987*^9}, {3.6063213704405327`*^9, 3.606321384151993*^9}, {
+   3.606321562225047*^9, 3.606321563105497*^9}, {3.6063217689537687`*^9, 
+   3.606321773863748*^9}, {3.606321810826214*^9, 3.606321827592667*^9}, {
+   3.60632219021014*^9, 3.606322238750854*^9}, {3.606322304466587*^9, 
+   3.606322308482177*^9}, {3.606322484192152*^9, 3.606322493226256*^9}, {
+   3.606322675474773*^9, 3.6063226962556057`*^9}, {3.606322852639495*^9, 
+   3.606322929526391*^9}, {3.606322998057967*^9, 3.6063230830812473`*^9}, {
+   3.606323191159957*^9, 3.606323191614147*^9}, {3.606323371946713*^9, 
+   3.6063233814746017`*^9}, 3.60632347712393*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"startGame", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.606230066778406*^9, 3.606230068570331*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{FrontEndObject[
+    LinkObject["n8j_shm", 3, 1]],19,
+   "FrontEndObject[LinkObject[\"n8j_shm\", 3, 1]]","19","\"Space Chase\""},
+  "NotebookObjectUnsaved"]], "Output",
+ CellChangeTimes->{
+  3.606230069254838*^9, {3.606230114689406*^9, 3.6062301440747843`*^9}, 
+   3.606230184472698*^9, 3.606230238644321*^9, 3.6062302723033113`*^9, 
+   3.606230361366748*^9, 3.6063201683090153`*^9, 3.606320201798768*^9, 
+   3.606320323816381*^9, 3.6063204031116753`*^9, 3.606320461240593*^9, 
+   3.606320497040428*^9, {3.6063206144176073`*^9, 3.606320637477745*^9}, 
+   3.6063207534357433`*^9, 3.6063208012775*^9, 3.606321001010028*^9, 
+   3.606321065871718*^9, {3.606321317653955*^9, 3.606321387312949*^9}, {
+   3.6063215717427483`*^9, 3.6063216141629066`*^9}, 3.606321728936805*^9, 
+   3.60632177801886*^9, 3.606321816122583*^9, 3.6063218749769487`*^9, 
+   3.606321907820878*^9, 3.606321941862462*^9, 3.606321996145295*^9, {
+   3.606322150155015*^9, 3.6063221652319202`*^9}, 3.606322196813796*^9, {
+   3.606322312130032*^9, 3.606322359272937*^9}, 3.606322495101935*^9, {
+   3.6063226859104013`*^9, 3.606322698618309*^9}, {3.606322872876501*^9, 
+   3.606322895546708*^9}, 3.606322931590002*^9, {3.606323004165327*^9, 
+   3.606323031409566*^9}, {3.606323061492589*^9, 3.6063230851324883`*^9}, 
+   3.606323194010067*^9, 3.606323387146764*^9, 3.606323463335566*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "Show"}]], "Input",
+ CellChangeTimes->{{3.606320480629202*^9, 3.606320481536079*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox["\<\"\!\(\*RowBox[{\\\"Show\\\", \\\"[\\\", \
+RowBox[{StyleBox[\\\"graphics\\\", \\\"TI\\\"], \\\",\\\", \
+StyleBox[\\\"options\\\", \\\"TI\\\"]}], \\\"]\\\"}]\) shows graphics with \
+the specified options added. \\n\!\(\*RowBox[{\\\"Show\\\", \\\"[\\\", \
+RowBox[{SubscriptBox[StyleBox[\\\"g\\\", \\\"TI\\\"], StyleBox[\\\"1\\\", \
+\\\"TR\\\"]], \\\",\\\", SubscriptBox[StyleBox[\\\"g\\\", \\\"TI\\\"], \
+StyleBox[\\\"2\\\", \\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\
+\"TR\\\"]}], \\\"]\\\"}]\) shows several graphics combined. \"\>", "MSG"], 
+  "\[NonBreakingSpace]", 
+  ButtonBox[
+   StyleBox["\[RightSkeleton]", "SR"],
+   Active->True,
+   BaseStyle->"Link",
+   ButtonData->"paclet:ref/Show"]}]], "Print", "PrintUsage",
+ CellChangeTimes->{3.60632346349981*^9},
+ CellTags->"Info3606305463-3558266"]
+}, Open  ]]
+},
+WindowSize->{756, 733},
+WindowMargins->{{Automatic, 40}, {Automatic, 0}},
+ShowSelection->True,
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info3606305463-3558266"->{
+  Cell[8941, 197, 851, 17, 58, "Print",
+   CellTags->"Info3606305463-3558266"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info3606305463-3558266", 10148, 229}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 973, 22, 97, "Input"],
+Cell[1533, 44, 2576, 54, 199, "Input"],
+Cell[4112, 100, 225, 4, 28, "Input"],
+Cell[4340, 106, 126, 2, 28, "Input"],
+Cell[4469, 110, 2793, 49, 182, "Input"],
+Cell[CellGroupData[{
+Cell[7287, 163, 123, 2, 28, "Input"],
+Cell[7413, 167, 1375, 21, 41, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8825, 193, 113, 2, 28, "Input"],
+Cell[8941, 197, 851, 17, 58, "Print",
+ CellTags->"Info3606305463-3558266"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -1,0 +1,254 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      9120,        244]
+NotebookOptionsPosition[      8387,        215]
+NotebookOutlinePosition[      8771,        232]
+CellTagsIndexPosition[      8728,        229]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Space Chase", "Title",
+ CellChangeTimes->{{3.605563756328854*^9, 3.6055637574936123`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", 
+   RowBox[{"playerLocation", ",", "windowSize"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"playerLocation", "=", 
+   RowBox[{"{", 
+    RowBox[{"350", ",", "350"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"playerSpeed", "=", "40"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"windowSize", "=", 
+   RowBox[{"{", 
+    RowBox[{"700", ",", "700"}], "}"}]}], ";"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"drawPlayer", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Return", "[", 
+     RowBox[{"Graphics", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"PointSize", "[", "Large", "]"}], ",", "Orange", ",", 
+         RowBox[{"Point", "[", 
+          RowBox[{"Dynamic", "[", "playerLocation", "]"}], "]"}]}], "}"}], 
+       ",", 
+       RowBox[{"ImageSize", "\[Rule]", 
+        RowBox[{"Dynamic", "@", 
+         RowBox[{"AbsoluteCurrentValue", "[", 
+          RowBox[{
+           RowBox[{"EvaluationNotebook", "[", "]"}], ",", "WindowSize"}], 
+          "]"}]}]}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{"windowSize", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{"windowSize", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}], "}"}]}]}], "]"}], 
+     "]"}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.605450085757379*^9, 3.6054500955389013`*^9}, {
+   3.605450143631599*^9, 3.605450177215872*^9}, {3.605450294637021*^9, 
+   3.6054502974754143`*^9}, {3.605450799891199*^9, 3.605450926097507*^9}, {
+   3.605452420320128*^9, 3.605452446502653*^9}, {3.6054525093381147`*^9, 
+   3.6054525280003357`*^9}, 3.60545269661049*^9, {3.605564462839991*^9, 
+   3.6055644657430973`*^9}, {3.6055653766824503`*^9, 3.605565378049958*^9}, 
+   3.605565603386313*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"drawScene", "[", "]"}], ":=", 
+  RowBox[{"DynamicModule", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Show", "[", 
+     RowBox[{"drawPlayer", "[", "]"}], "]"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.605564213751686*^9, 3.605564252516837*^9}, {
+  3.605564922223279*^9, 3.605564922971573*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"gameLoop", "[", "]"}], ":=", 
+  RowBox[{"DynamicModule", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"done", "=", "False"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"drawScene", "[", "]"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.605450181177966*^9, 3.605450282026291*^9}, {
+  3.605450318524074*^9, 3.605450319794036*^9}, {3.605450812358927*^9, 
+  3.6054508130574303`*^9}, {3.605564250687554*^9, 3.605564255459903*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"keyEvents", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Switch", "[", 
+      RowBox[{
+       RowBox[{"CurrentValue", "[", "\"\<EventKey\>\"", "]"}], ",", 
+       "\[IndentingNewLine]", "\"\<w\>\"", ",", 
+       RowBox[{
+        RowBox[{"playerLocation", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], "+=", "playerSpeed"}], ",", 
+       "\[IndentingNewLine]", "\"\<s\>\"", ",", 
+       RowBox[{
+        RowBox[{"playerLocation", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], " ", "-=", "playerSpeed"}], ",", 
+       "\[IndentingNewLine]", "\"\<a\>\"", ",", 
+       RowBox[{
+        RowBox[{"playerLocation", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "-=", "playerSpeed"}], ",", 
+       "\[IndentingNewLine]", "\"\<d\>\"", ",", 
+       RowBox[{
+        RowBox[{"playerLocation", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "+=", "playerSpeed"}], ",", 
+       "\[IndentingNewLine]", "_", ",", 
+       RowBox[{"Print", "[", "\"\<Nothing pressed\>\"", "]"}]}], 
+      "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.6055638347722387`*^9, 3.605563843506331*^9}, {
+  3.605564811194313*^9, 3.605564814221237*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"actions", "=", 
+   RowBox[{"{", 
+    RowBox[{"\"\<KeyDown\>\"", "\[RuleDelayed]", 
+     RowBox[{"keyEvents", "[", "]"}]}], "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6055646970885067`*^9, 3.605564746706328*^9}, {
+  3.605564842285964*^9, 3.605564843731813*^9}, {3.605565194604611*^9, 
+  3.605565194708606*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"startGame", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"CreateDocument", "[", 
+     RowBox[{
+      RowBox[{"EventHandler", "[", 
+       RowBox[{
+        RowBox[{"MouseAppearance", "[", 
+         RowBox[{
+          RowBox[{"Style", "[", 
+           RowBox[{
+            RowBox[{"drawScene", "[", "]"}], ",", 
+            RowBox[{"Selectable", "\[Rule]", "False"}], ",", 
+            RowBox[{"Editable", "\[Rule]", "False"}]}], "]"}], ",", 
+          "\"\<Arrow\>\""}], "]"}], ",", "actions"}], "]"}], ",", 
+      RowBox[{"CellMargins", "\[Rule]", "0"}], ",", 
+      RowBox[{"ShowCellBracket", "\[Rule]", "False"}], ",", 
+      RowBox[{"ShowCellLabel", "\[Rule]", "False"}], ",", 
+      RowBox[{"\"\<TrackCellChangeTimes\>\"", "\[Rule]", "False"}], ",", 
+      RowBox[{"WindowElements", "\[Rule]", 
+       RowBox[{"{", "}"}]}], ",", 
+      RowBox[{"WindowFrame", "\[Rule]", "\"\<Normal\>\""}], ",", 
+      RowBox[{"\"\<BlinkingCellInsertionPoint\>\"", "\[Rule]", "False"}], ",", 
+      RowBox[{"\"\<CellInsertionPointCell\>\"", "\[Rule]", 
+       RowBox[{"{", "}"}]}], ",", 
+      RowBox[{"WindowMargins", "\[Rule]", "Automatic"}], ",", 
+      RowBox[{"WindowTitle", "\[Rule]", "\"\<Space Chase\>\""}], ",", 
+      RowBox[{"Background", "\[Rule]", "White"}], ",", 
+      RowBox[{"NotebookEventActions", "\[Rule]", "actions"}], ",", 
+      RowBox[{"Editable", "\[Rule]", "False"}], ",", 
+      RowBox[{"Deployed", "\[Rule]", "True"}]}], "]"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.605563854103084*^9, 3.605563938332551*^9}, {
+  3.605564208794002*^9, 3.605564211289432*^9}, {3.60556426985599*^9, 
+  3.605564356221196*^9}, {3.605564407222568*^9, 3.605564435112349*^9}, {
+  3.605564751659602*^9, 3.605564755807786*^9}, {3.605565004702601*^9, 
+  3.605565063492714*^9}, {3.60556509646802*^9, 3.60556512323981*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"startGame", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.6055639563760433`*^9, 3.605563959321974*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{FrontEndObject[
+    LinkObject["vpq_shm", 3, 1]],58,
+   "FrontEndObject[LinkObject[\"vpq_shm\", 3, 1]]","58","\"Space Chase\""},
+  "NotebookObjectUnsaved"]], "Output",
+ CellChangeTimes->{{3.605563959992601*^9, 3.605563974937299*^9}, {
+   3.6055642868809547`*^9, 3.6055643102798967`*^9}, {3.605564361596712*^9, 
+   3.6055643764886436`*^9}, {3.60556441590324*^9, 3.605564437924408*^9}, 
+   3.605564469774634*^9, 3.6055646084804077`*^9, 3.605564769642033*^9, 
+   3.605564854744643*^9, {3.605564927172264*^9, 3.6055649391965*^9}, {
+   3.605565104255838*^9, 3.605565126279193*^9}, 3.605565200329873*^9, 
+   3.605565257177836*^9, 3.605565381500896*^9, 3.6055656082521763`*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.60556460370013*^9, 3.6055646065783243`*^9}}]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{740, 707},
+WindowMargins->{{Automatic, 221}, {Automatic, 13}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 96, 1, 92, "Title"],
+Cell[678, 25, 473, 14, 80, "Input"],
+Cell[1154, 41, 1652, 39, 114, "Input"],
+Cell[2809, 82, 421, 10, 80, "Input"],
+Cell[3233, 94, 520, 11, 80, "Input"],
+Cell[3756, 107, 1325, 31, 182, "Input"],
+Cell[5084, 140, 349, 8, 28, "Input"],
+Cell[5436, 150, 1976, 39, 216, "Input"],
+Cell[CellGroupData[{
+Cell[7437, 193, 125, 2, 28, "Input"],
+Cell[7565, 197, 698, 11, 41, "Output"]
+}, Open  ]],
+Cell[8278, 211, 93, 1, 28, "Input"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

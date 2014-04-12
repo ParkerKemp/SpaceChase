@@ -1,0 +1,222 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      8457,        212]
+NotebookOptionsPosition[      8023,        192]
+NotebookOutlinePosition[      8406,        209]
+CellTagsIndexPosition[      8363,        206]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+3. What we\[CloseCurlyQuote]ve done/learned/found to solve an aspect of the \
+project\
+\>", "Section",
+ CellChangeTimes->{{3.605832543861725*^9, 3.6058325761064262`*^9}, {
+  3.60583265788564*^9, 3.6058326662156363`*^9}, {3.605832762390092*^9, 
+  3.605832788534397*^9}}],
+
+Cell[TextData[{
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "\[CloseCurlyQuote]s keystroke event handling has been very disappointing, \
+in that it does not recognize any kind of \[OpenCurlyDoubleQuote]key up\
+\[CloseCurlyDoubleQuote] event at all; nor does it provide a synchronous \
+function to check the state of a given key. For our game to be fully \
+functional, it will be important to know exactly when the user releases a \
+given key. As far as we can tell, we have no practical means to accomplish \
+this using purely ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ", so we have been forced to turn to JLink.\n\nAs you surely know, JLink is \
+a developer\[CloseCurlyQuote]s kit packaged with ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " which allows us to utilize the Java Virtual Machine and many useful Java \
+classes. The main thing that drew us to JLink was the ability to use \
+listeners which are more comprehensive than those provided by ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " itself. Inherited classes like MathKeyListener are designed specifically \
+to interact with ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "\[CloseCurlyQuote]s code through the use of callback functions.\n\nHere is \
+some example code to illustrate how we hope to make use of it:"
+}], "Text",
+ CellChangeTimes->{{3.6058326728945827`*^9, 3.6058327606703176`*^9}, {
+  3.6058327982547293`*^9, 3.6058328202630577`*^9}, {3.6058328842529593`*^9, 
+  3.605833156230756*^9}, {3.605833350985364*^9, 3.6058333733830442`*^9}, {
+  3.60583342073048*^9, 3.605833426055203*^9}, {3.6058342991384077`*^9, 
+  3.605834387650783*^9}, {3.605834750264266*^9, 3.605834806666313*^9}, {
+  3.605834843267277*^9, 3.6058349906268253`*^9}, {3.605835736596614*^9, 
+  3.605835761482386*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"<<", " ", "JLink`"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Import", " ", "the", " ", "JLink", " ", "package"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ReinstallJava", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Start", " ", "the", " ", "JVM", " ", 
+    RowBox[{"(", 
+     RowBox[{
+     "stopping", " ", "it", " ", "first", " ", "if", " ", "necessary"}], 
+     ")"}]}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"LoadJavaClass", "[", "\"\<java.lang.System\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Load", " ", 
+    RowBox[{"Java", "'"}], "s", " ", "System", " ", "class"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ShowJavaConsole", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Open", " ", "a", " ", "console", " ", "window", " ", "which", " ", 
+    "listens", " ", "to", " ", "System`out", " ", "and", " ", "System`err"}], 
+   " ", "*)"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"listener", "=", 
+    RowBox[{"JavaNew", "[", 
+     RowBox[{"\"\<com.wolfram.jlink.MathKeyListener\>\"", ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<keyPressed\>\"", ",", "\"\<keyEvent\>\""}], "}"}], ",", 
+        
+        RowBox[{"{", 
+         RowBox[{"\"\<keyReleased\>\"", ",", "\"\<keyEvent\>\""}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<keyTyped\>\"", ",", "\"\<keyEvent\>\""}], "}"}]}], 
+       "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "Instantiate", " ", "an", " ", "object", " ", "of", " ", "type", " ", 
+     "MathKeyListener"}], ";", " ", 
+    RowBox[{
+    "pass", " ", "to", " ", "the", " ", "constructor", "\[IndentingNewLine]", 
+     "a", " ", "callback", " ", "function", " ", "for", " ", "each", " ", 
+     "of", " ", "its", " ", "three", " ", "event", " ", "types", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"in", " ", "this", " ", "example"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "we", " ", "just", " ", "use", " ", "the", " ", "same", " ", 
+        "callback", " ", "for", " ", "all", " ", "of", " ", "them"}]}], 
+      ")"}]}]}], " ", "*)"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+
+ RowBox[{
+  RowBox[{
+   RowBox[{"keyEvent", "[", 
+    RowBox[{"e_", ",", "char_", ",", "code_"}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"System`out", "@", 
+    RowBox[{"println", "[", "\"\<Key event!\>\"", "]"}]}]}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Our", " ", "callback", " ", "function"}], " ", "*)"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"frame", "=", 
+    RowBox[{"JavaNew", "[", "\"\<com.wolfram.jlink.MathFrame\>\"", "]"}]}], 
+   ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Instantiate", " ", "a", " ", "MathFrame", " ", 
+    RowBox[{"(", "window", ")"}]}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"frame", "@", 
+    RowBox[{"addKeyListener", "[", "listener", "]"}]}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Assign", " ", "our", " ", "key", " ", "listener", " ", "to", " ", "the", 
+    " ", "new", " ", "frame"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"JavaShow", "[", "frame", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Make", " ", "the", " ", "frame", " ", "visible"}], " ", 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.605570736612945*^9, 3.605570778774975*^9}, {
+   3.605570847521564*^9, 3.605570878416774*^9}, {3.605572075521619*^9, 
+   3.60557208564813*^9}, {3.605833201045927*^9, 3.605833204641137*^9}, {
+   3.605833261894656*^9, 3.605833262406329*^9}, {3.605833298161737*^9, 
+   3.605833318705634*^9}, {3.605833386771215*^9, 3.605833401614668*^9}, {
+   3.605833433634472*^9, 3.605833641746006*^9}, 3.605835727347434*^9}],
+
+Cell["\<\
+Executing the above code should open up a console window, as well as another \
+very small window (which should automatically be brought into focus). If you \
+press keys on the keyboard, the console should quickly fill up with \
+\[OpenCurlyDoubleQuote]Key event!\[CloseCurlyDoubleQuote] messages, \
+demonstrating that the callback function is working properly.
+
+The side-effect of the MathKeyListener approach is that it may force us to \
+implement most of our graphics code through Java, since there is no way to \
+attach one of these listeners to a Notebook (that we are aware of). We\
+\[CloseCurlyQuote]re still weighing our options on this.\
+\>", "Text",
+ CellChangeTimes->{{3.605833654962487*^9, 3.6058337878189898`*^9}, {
+   3.605833820974831*^9, 3.605833836812229*^9}, {3.605833874961842*^9, 
+   3.6058339982416773`*^9}, 3.6058341668455667`*^9, {3.605834240244677*^9, 
+   3.605834255005412*^9}, {3.60583440671592*^9, 3.605834582203953*^9}, {
+   3.6058346302420683`*^9, 3.605834749059821*^9}, 3.605834851949068*^9, {
+   3.6058358030114594`*^9, 3.6058358057309933`*^9}, {3.6058358993696423`*^9, 
+   3.6058359924646063`*^9}, {3.605836178175477*^9, 3.60583624054459*^9}, {
+   3.605836291270626*^9, 3.6058364212431507`*^9}}]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{740, 706},
+WindowMargins->{{137, Automatic}, {Automatic, 0}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 279, 6, 115, "Section"],
+Cell[861, 30, 1796, 34, 258, "Text"],
+Cell[2660, 66, 4109, 102, 454, "Input"],
+Cell[6772, 170, 1235, 19, 163, "Text"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

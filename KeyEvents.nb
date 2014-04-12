@@ -1,0 +1,146 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      4855,        137]
+NotebookOptionsPosition[      4598,        123]
+NotebookOutlinePosition[      4955,        139]
+CellTagsIndexPosition[      4912,        136]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"<<", " ", "JLink`"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Import", " ", "the", " ", "JLink", " ", "package"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ReinstallJava", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Start", " ", "the", " ", "JVM", " ", 
+    RowBox[{"(", 
+     RowBox[{
+     "stopping", " ", "it", " ", "first", " ", "if", " ", "necessary"}], 
+     ")"}]}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"LoadJavaClass", "[", "\"\<java.lang.System\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Load", " ", 
+    RowBox[{"Java", "'"}], "s", " ", "System", " ", "class"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ShowJavaConsole", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Open", " ", "a", " ", "console", " ", "window", " ", "which", " ", 
+    "listens", " ", "to", " ", "System`out", " ", "and", " ", "System`err"}], 
+   " ", "*)"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"listener", "=", 
+    RowBox[{"JavaNew", "[", 
+     RowBox[{"\"\<com.wolfram.jlink.MathKeyListener\>\"", ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<keyPressed\>\"", ",", "\"\<keyEvent\>\""}], "}"}], ",", 
+        
+        RowBox[{"{", 
+         RowBox[{"\"\<keyReleased\>\"", ",", "\"\<keyEvent\>\""}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<keyTyped\>\"", ",", "\"\<keyEvent\>\""}], "}"}]}], 
+       "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "Instantiate", " ", "an", " ", "object", " ", "of", " ", "type", " ", 
+     "MathKeyListener"}], ";", " ", 
+    RowBox[{
+    "pass", " ", "to", " ", "the", " ", "constructor", "\[IndentingNewLine]", 
+     "a", " ", "callback", " ", "function", " ", "for", " ", "each", " ", 
+     "of", " ", "its", " ", "three", " ", "event", " ", "types", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"in", " ", "this", " ", "example"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "we", " ", "just", " ", "use", " ", "the", " ", "same", " ", 
+        "callback", " ", "for", " ", "all", " ", "of", " ", "them"}]}], 
+      ")"}]}]}], " ", "*)"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+
+ RowBox[{
+  RowBox[{
+   RowBox[{"keyEvent", "[", 
+    RowBox[{"e_", ",", "char_", ",", "code_"}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"System`out", "@", 
+    RowBox[{"println", "[", "\"\<Key event!\>\"", "]"}]}]}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Our", " ", "callback", " ", "function"}], " ", "*)"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"frame", "=", 
+    RowBox[{"JavaNew", "[", "\"\<com.wolfram.jlink.MathFrame\>\"", "]"}]}], 
+   ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Instantiate", " ", "a", " ", "MathFrame", " ", 
+    RowBox[{"(", "window", ")"}]}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"frame", "@", 
+    RowBox[{"addKeyListener", "[", "listener", "]"}]}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Assign", " ", "our", " ", "key", " ", "listener", " ", "to", " ", "the", 
+    " ", "new", " ", "frame"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"JavaShow", "[", "frame", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Make", " ", "the", " ", "frame", " ", "visible"}], " ", 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.605570736612945*^9, 3.605570778774975*^9}, {
+  3.605570847521564*^9, 3.605570878416774*^9}, {3.605572075521619*^9, 
+  3.60557208564813*^9}, {3.605835043713125*^9, 3.605835050696398*^9}, {
+  3.6058351299742517`*^9, 3.605835149166379*^9}, {3.605835239707306*^9, 
+  3.6058353393042603`*^9}, {3.605835528859829*^9, 3.605835704270583*^9}}]
+},
+WindowSize->{740, 708},
+WindowMargins->{{Automatic, 190}, {12, Automatic}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 4037, 101, 454, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -1,0 +1,88 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      2426,         79]
+NotebookOptionsPosition[      2042,         60]
+NotebookOutlinePosition[      2420,         77]
+CellTagsIndexPosition[      2377,         74]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Set", " ", "working", " ", "directory"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetDirectory", "[", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"Locate", " ", "the", " ", "package", " ", "file"}], ",", " ", 
+     RowBox[{
+     "and", " ", "place", " ", "it", " ", "on", " ", "the", " ", "$PATH", " ",
+       "so", " ", "it", " ", "can", " ", "be", " ", "imported"}]}], " ", 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"FindFile", "[", "\"\<XSquared.m\>\"", "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Import", " ", "the", " ", "package"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"<<", " ", "XSquared.m"}]}]}]], "Input",
+ CellChangeTimes->{{3.6057916217047567`*^9, 3.6057916469735823`*^9}, {
+  3.6057916923366127`*^9, 3.605791708287524*^9}, {3.6057917556911182`*^9, 
+  3.605791790756564*^9}, {3.605791958220035*^9, 3.6057919583206167`*^9}, {
+  3.6057921386396847`*^9, 3.605792165756555*^9}, {3.6057926756384363`*^9, 
+  3.605792758417671*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"xSquared", "[", "7", "]"}]], "Input",
+ CellChangeTimes->{{3.605792767023041*^9, 3.605792772595978*^9}}],
+
+Cell[BoxData["49"], "Output",
+ CellChangeTimes->{3.6057927730267897`*^9}]
+}, Open  ]]
+},
+WindowSize->{740, 706},
+WindowMargins->{{310, Automatic}, {Automatic, 49}},
+ShowSelection->True,
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 1241, 28, 148, "Input"],
+Cell[CellGroupData[{
+Cell[1823, 52, 127, 2, 28, "Input"],
+Cell[1953, 56, 73, 1, 62, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
