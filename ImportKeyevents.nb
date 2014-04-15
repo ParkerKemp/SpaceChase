@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     26090,        540]
-NotebookOptionsPosition[     25537,        517]
-NotebookOutlinePosition[     25913,        534]
-CellTagsIndexPosition[     25870,        531]
+NotebookDataLength[     26153,        540]
+NotebookOptionsPosition[     25600,        517]
+NotebookOutlinePosition[     25976,        534]
+CellTagsIndexPosition[     25933,        531]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -34,8 +34,8 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"playerLocation", "=", 
-   RowBox[{"{", 
-    RowBox[{"0", ",", "0"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"environmentSize", " ", "/", " ", "2"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"playerVelocity", "=", 
    RowBox[{"{", 
@@ -131,7 +131,8 @@ Cell[BoxData[{
    3.6065262075331306`*^9, 3.606526218975432*^9}, {3.6065265153337107`*^9, 
    3.6065265337625303`*^9}, {3.6065269899917603`*^9, 3.606527073304228*^9}, {
    3.606527127203617*^9, 3.606527128451926*^9}, {3.6065272330530167`*^9, 
-   3.606527251397829*^9}, 3.606527285196653*^9}],
+   3.606527251397829*^9}, 3.606527285196653*^9, {3.606528444037582*^9, 
+   3.606528447847239*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -171,8 +172,8 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{
          RowBox[{"playerLocation", "[", 
-          RowBox[{"[", "1", "]"}], "]"}], "\[LessEqual]", 
-         RowBox[{"shuttleSize", "/", "2"}]}], ",", 
+          RowBox[{"[", "1", "]"}], "]"}], "\[LessEqual]", "shuttleSize"}], 
+        ",", 
         RowBox[{"AppendTo", "[", 
          RowBox[{"imageList", ",", 
           RowBox[{"Inset", "[", 
@@ -193,8 +194,7 @@ Cell[BoxData[{
           RowBox[{"[", "1", "]"}], "]"}], "\[GreaterEqual]", 
          RowBox[{
           RowBox[{"environmentSize", "[", 
-           RowBox[{"[", "1", "]"}], "]"}], "-", 
-          RowBox[{"shuttleSize", "/", "2"}]}]}], ",", 
+           RowBox[{"[", "1", "]"}], "]"}], "-", "shuttleSize"}]}], ",", 
         RowBox[{"AppendTo", "[", 
          RowBox[{"imageList", ",", 
           RowBox[{"Inset", "[", 
@@ -212,8 +212,8 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{
          RowBox[{"playerLocation", "[", 
-          RowBox[{"[", "2", "]"}], "]"}], "\[LessEqual]", 
-         RowBox[{"shuttleSize", "/", "2"}]}], ",", 
+          RowBox[{"[", "2", "]"}], "]"}], "\[LessEqual]", "shuttleSize"}], 
+        ",", 
         RowBox[{"AppendTo", "[", 
          RowBox[{"imageList", ",", 
           RowBox[{"Inset", "[", 
@@ -233,8 +233,7 @@ Cell[BoxData[{
           RowBox[{"[", "2", "]"}], "]"}], "\[GreaterEqual]", 
          RowBox[{
           RowBox[{"environmentSize", "[", 
-           RowBox[{"[", "2", "]"}], "]"}], "-", 
-          RowBox[{"shuttleSize", "/", "2"}]}]}], ",", 
+           RowBox[{"[", "2", "]"}], "]"}], "-", "shuttleSize"}]}], ",", 
         RowBox[{"AppendTo", "[", 
          RowBox[{"imageList", ",", 
           RowBox[{"Inset", "[", 
@@ -361,7 +360,7 @@ Cell[BoxData[{
    3.6065269265474997`*^9, 3.6065269288992643`*^9}, {3.606526965708346*^9, 
    3.606526967757531*^9}, {3.606527104413175*^9, 3.606527116804172*^9}, {
    3.606527377838731*^9, 3.606527389222527*^9}, {3.606527441660735*^9, 
-   3.606527446774741*^9}}],
+   3.606527446774741*^9}, {3.606528374141234*^9, 3.60652838176348*^9}}],
 
 Cell[BoxData[
  RowBox[{"initJLink", "[", "]"}]], "Input",
@@ -447,8 +446,8 @@ Cell[BoxData[
 
 Cell[BoxData[
  TemplateBox[{FrontEndObject[
-    LinkObject["6r2_shm", 3, 1]],309,
-   "FrontEndObject[LinkObject[\"6r2_shm\", 3, 1]]","309","\"Space Chase\""},
+    LinkObject["6r2_shm", 3, 1]],316,
+   "FrontEndObject[LinkObject[\"6r2_shm\", 3, 1]]","316","\"Space Chase\""},
   "NotebookObjectUnsaved"]], "Output",
  CellChangeTimes->{
   3.606230069254838*^9, {3.606230114689406*^9, 3.6062301440747843`*^9}, 
@@ -512,7 +511,8 @@ Cell[BoxData[
    3.606527032351445*^9, 3.606527078362138*^9}, {3.6065271235505877`*^9, 
    3.6065271361748753`*^9}, 3.606527179507333*^9, 3.606527239355514*^9, {
    3.6065272775561323`*^9, 3.6065272916286297`*^9}, 3.606527355823946*^9, {
-   3.6065273986773777`*^9, 3.606527418191799*^9}, 3.6065274528793497`*^9}]
+   3.6065273986773777`*^9, 3.606527418191799*^9}, 3.6065274528793497`*^9, 
+   3.606527936348928*^9, 3.606528389038007*^9, 3.606528454246057*^9}]
 }, Open  ]]
 },
 WindowSize->{873, 898},
@@ -533,14 +533,14 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 5431, 113, 574, "Input"],
-Cell[5991, 135, 10686, 228, 811, "Input"],
-Cell[16680, 365, 225, 4, 28, "Input"],
-Cell[16908, 371, 126, 2, 28, "Input"],
-Cell[17037, 375, 3621, 64, 199, "Input"],
+Cell[557, 20, 5483, 114, 574, "Input"],
+Cell[6043, 136, 10627, 226, 811, "Input"],
+Cell[16673, 364, 225, 4, 28, "Input"],
+Cell[16901, 370, 126, 2, 28, "Input"],
+Cell[17030, 374, 3621, 64, 199, "Input"],
 Cell[CellGroupData[{
-Cell[20683, 443, 123, 2, 28, "Input"],
-Cell[20809, 447, 4712, 67, 41, "Output"]
+Cell[20676, 442, 123, 2, 28, "Input"],
+Cell[20802, 446, 4782, 68, 41, "Output"]
 }, Open  ]]
 }
 ]
