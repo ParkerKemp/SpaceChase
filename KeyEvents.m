@@ -19,10 +19,22 @@ startGameLoop::usage="Starts the game loop."
 
 Begin["Private`"]
 
+keyUp[e_,char_,code_]:=Module[
+{},
+mapKeyUp[code]
+]
+
+mapKeyUp[code_]:=Module[
+{},
+Switch[code,
+	KeyEvent`VKUUP, Global`accelerating = False,
+	KeyEvent`VKULEFT, Global`playerAngularMomentum = 0,
+	KeyEvent`VKURIGHT, Global`playerAngularMomentum = 0
+	]
+]
+
 keyDown[e_,char_,code_]:=Module[
 {},
-System`out@println["Key pressed."];
-Print[FullForm[code]];
 mapKeyDown[code];
 ]
 
@@ -39,27 +51,22 @@ Switch[code,
 
 moveUp[]:=Module[
 {},
-	System`out@println["Movin' on up!"];
-	Global`playerApplyTrajectory = Global`playerRotation;
-	Global`speed += 0.2; 
+	Global`accelerating = True;
 ]
 
 moveDown[]:=Module[
 {},
-	System`out@println["movin' on down!"];
-	Global`speed -= 0.2; 
+Return[0];
 ]
 
 moveRight[]:=Module[
 {},
-	System`out@println["movin' on right!"];
-	Global`playerRotation += -\[Pi]/18;
+	Global`playerAngularMomentum = -Global`angularSpeed;
 ]
 
 moveLeft[]:=Module[
 {},
-	System`out@println["movin' on left!"];
-	Global`playerRotation += \[Pi]/18;
+	Global`playerAngularMomentum = Global`angularSpeed;
 ]
 
 mainMenu[]:=Module[
@@ -70,14 +77,9 @@ mainMenu[]:=Module[
 	]
 ]
 
-keyUp[e_,char_,code_]:=Module[
-{},
-System`out@println["Key released."];
-]
-
 keyTyped[e_,char_,code_]:=Module[
 {},
-System`out@println["Key typed."];
+Return[0];
 ]
 
 initJLink[]:=Module[
@@ -95,7 +97,7 @@ listener=JavaNew[listenerClass,{{"keyPressed","KeyEvents`keyDown"},{"keyReleased
 frame=JavaNew["com.wolfram.jlink.MathFrame"];
 frame@addKeyListener[listener];
 JavaShow[frame];
-ShowJavaConsole[];
+(*ShowJavaConsole[];*)
 ]
 
 drawPlayer[]:=Module[
@@ -103,14 +105,12 @@ drawPlayer[]:=Module[
 System`out@println["Drawing player..."];
 ]
 
-startGameLoop[]:=Module[
-{},
-RunScheduledTask[drawScene[], 0.05]
-]
-
 End[]
 
 EndPackage[]
+
+
+
 
 
 
