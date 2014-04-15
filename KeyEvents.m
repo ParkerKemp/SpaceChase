@@ -9,6 +9,9 @@ keyDown
 keyUp
 keyTyped
 moveUp
+moveDown
+moveRight
+moveLeft
 
 initWindow::usage="Create the main window. Must be called after initJLink."
 
@@ -27,14 +30,36 @@ mapKeyDown[code_]:=Module[
 {},
 Switch[code,
 	KeyEvent`VKUESCAPE,KeyEvents`mainMenu[],
-	KeyEvent`VKUUP,KeyEvents`moveUp[]
+	KeyEvent`VKUUP,KeyEvents`moveUp[],
+	KeyEvent`VKUDOWN,KeyEvents`moveDown[],
+	KeyEvent`VKURIGHT,KeyEvents`moveRight[],
+	KeyEvent`VKULEFT,KeyEvents`moveLeft[]
 	]
 ]
 
 moveUp[]:=Module[
 {},
 	System`out@println["Movin' on up!"];
-	Global`playerLocation[[2]] += 3;
+	Global`playerApplyTrajectory = Global`playerRotation;
+	Global`speed += 0.2; 
+]
+
+moveDown[]:=Module[
+{},
+	System`out@println["movin' on down!"];
+	Global`speed -= 0.2; 
+]
+
+moveRight[]:=Module[
+{},
+	System`out@println["movin' on right!"];
+	Global`playerRotation += -\[Pi]/18;
+]
+
+moveLeft[]:=Module[
+{},
+	System`out@println["movin' on left!"];
+	Global`playerRotation += \[Pi]/18;
 ]
 
 mainMenu[]:=Module[
@@ -86,3 +111,6 @@ RunScheduledTask[drawScene[], 0.05]
 End[]
 
 EndPackage[]
+
+
+
