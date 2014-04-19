@@ -12,8 +12,10 @@ moveUp
 moveDown
 moveRight
 moveLeft
+newGame
 
-initWindow::usage="Create the main window. Must be called after initJLink."
+initFrame
+initListener
 
 startGameLoop::usage="Starts the game loop."
 
@@ -71,10 +73,29 @@ moveLeft[]:=Module[
 
 mainMenu[]:=Module[
 {},
-	Switch[ChoiceDialog["Space Chase", {"New Game"->1,"Exit"->2}],
-		1,Print["New game chosen."],
-		2,Print["Exit chosen."]
+	destroyFrame[];
+	Pause[1];
+	Switch[ChoiceDialog["Space Chase", {"New Game"->1,"Exit"->2}, Modal->True],
+		1, newGame[],
+		2, exitGame[]
 	]
+]
+
+newGame[]:=Module[
+{},
+	Global`playerLocation = Global`environmentSize / 2;
+	Global`playerVelocity = {0,0};
+	Global`playerAcceleration = {0,0};
+	Global`playerRotation = 0;
+	Global`playerAngularMomentum = 0;
+	Global`accelerating = False;
+	initFrame[];
+]
+
+exitGame[]:=Module[
+{},
+RemoveScheduledTask[ScheduledTasks[]];
+NotebookClose[Global`nb];
 ]
 
 keyTyped[e_,char_,code_]:=Module[
@@ -89,15 +110,25 @@ LoadJavaClass["java.lang.System"];
 LoadJavaClass["java.awt.event.KeyEvent"];
 ]
 
-initWindow[]:=Module[
+initListener[]:=Module[
 {},
 listenerClass=LoadJavaClass["com.wolfram.jlink.MathKeyListener"];
 listener=JavaNew[listenerClass,{{"keyPressed","KeyEvents`keyDown"},{"keyReleased","KeyEvents`keyUp"},{"keyTyped","KeyEvents`keyTyped"}}];
+]
 
+initFrame[]:=Module[
+{},
 frame=JavaNew["com.wolfram.jlink.MathFrame"];
 frame@addKeyListener[listener];
+frame@setModal[];
 JavaShow[frame];
 (*ShowJavaConsole[];*)
+]
+
+destroyFrame[]:=Module[
+{},
+frame@setVisible[False];
+frame@dispose[];
 ]
 
 drawPlayer[]:=Module[
@@ -108,3 +139,6 @@ System`out@println["Drawing player..."];
 End[]
 
 EndPackage[]
+
+
+
