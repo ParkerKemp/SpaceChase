@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     38433,        830]
-NotebookOptionsPosition[     37839,        806]
-NotebookOutlinePosition[     38215,        823]
-CellTagsIndexPosition[     38172,        820]
+NotebookDataLength[     40142,        866]
+NotebookOptionsPosition[     39509,        841]
+NotebookOutlinePosition[     39885,        858]
+CellTagsIndexPosition[     39842,        855]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -34,7 +34,7 @@ Cell[BoxData[{
    RowBox[{"{", 
     RowBox[{"800", ",", "600"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"environmentScale", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"environmentScale", "=", "4"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"shuttleSize", "=", 
    RowBox[{"60", "/", "environmentScale"}]}], ";"}], "\[IndentingNewLine]", 
@@ -50,7 +50,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"speed", " ", "=", " ", "0.5"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"enemySpeed", "=", "5"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"enemySpeed", "=", "12.0"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"angularSpeed", "=", 
    FractionBox["\[Pi]", "18"]}], ";"}], "\[IndentingNewLine]", 
@@ -128,7 +128,10 @@ Cell[BoxData[{
    3.6069313450230427`*^9, 3.606931363308169*^9}, {3.6069314324958982`*^9, 
    3.606931456814453*^9}, {3.606932973754545*^9, 3.606932976176553*^9}, {
    3.606936144334876*^9, 3.606936148614612*^9}, {3.606937482388883*^9, 
-   3.6069374826344223`*^9}}],
+   3.6069374826344223`*^9}, {3.6069381590029907`*^9, 3.6069381593096647`*^9}, 
+   3.606938351260502*^9, {3.606938385001295*^9, 3.606938386213113*^9}, {
+   3.606938471542116*^9, 3.606938471735105*^9}, {3.606939331512013*^9, 
+   3.606939331679056*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -173,17 +176,22 @@ Cell[BoxData[{
          RowBox[{"Show", "[", 
           RowBox[{
            RowBox[{"drawPlayer", "[", "]"}], ",", 
-           RowBox[{"ListPlot", "[", 
-            RowBox[{"playerPath", ",", 
-             RowBox[{"PlotStyle", "\[Rule]", "Orange"}]}], "]"}], ",", 
+           RowBox[{"(*", 
+            RowBox[{
+             RowBox[{"ListPlot", "[", 
+              RowBox[{"playerPath", ",", 
+               RowBox[{"PlotStyle", "\[Rule]", "Orange"}]}], "]"}], ","}], 
+            "*)"}], 
            RowBox[{"Graphics", "[", 
             RowBox[{"{", 
              RowBox[{
               RowBox[{"PointSize", "[", "Large", "]"}], ",", "Red", ",", 
-              RowBox[{"Point", "[", "enemyPosition", "]"}], ",", "Green", ",", 
-              RowBox[{"Point", "[", "enemyDestination", "]"}]}], "}"}], 
-            "]"}]}], "]"}], "]"}]}], "\[IndentingNewLine]", "}"}], "]"}]}], 
-    "\[IndentingNewLine]", "]"}]}], 
+              RowBox[{"Point", "[", "enemyPosition", "]"}]}], 
+             RowBox[{"(*", 
+              RowBox[{",", "Green", ",", 
+               RowBox[{"Point", "[", "enemyDestination", "]"}]}], "*)"}], 
+             "}"}], "]"}]}], "]"}], "]"}]}], "\[IndentingNewLine]", "}"}], 
+      "]"}]}], "\[IndentingNewLine]", "]"}]}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -330,9 +338,26 @@ Cell[BoxData[{
       RowBox[{"playerPath", "=", 
        RowBox[{"futurePath", "[", "]"}]}], ";", "\[IndentingNewLine]", 
       RowBox[{"updateAIVector", "[", "]"}], ";", "\[IndentingNewLine]", 
-      RowBox[{"enemyPosition", "+=", "enemyVelocity"}], ";"}]}], 
+      RowBox[{"enemyPosition", "=", 
+       RowBox[{"Mod", "[", 
+        RowBox[{
+         RowBox[{"enemyPosition", "+", "enemyVelocity"}], ",", 
+         "environmentSize"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"checkCollision", "[", "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"destroyFrame", "[", "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"newGame", "[", "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}], 
     "\[IndentingNewLine]", "]"}]}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"checkCollision", "[", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"EuclideanDistance", "[", 
+     RowBox[{"enemyPosition", ",", "playerLocation"}], "]"}], "<", 
+    "shuttleSize"}]}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"vectorToPoint", "[", 
@@ -623,7 +648,9 @@ Cell[BoxData[{
    3.6069370277759933`*^9, 3.606937141452886*^9}, {3.606937245777235*^9, 
    3.606937316417225*^9}, 3.606937370638839*^9, {3.6069376034480867`*^9, 
    3.606937620468272*^9}, 3.606937678709754*^9, {3.606937739361148*^9, 
-   3.606937743601097*^9}}],
+   3.606937743601097*^9}, {3.606938248074442*^9, 3.606938262411209*^9}, {
+   3.6069385407556*^9, 3.606938633938146*^9}, {3.606938732869132*^9, 
+   3.606938755867817*^9}, {3.6069389892833652`*^9, 3.606938994332679*^9}}],
 
 Cell[BoxData[
  RowBox[{"initJLink", "[", "]"}]], "Input",
@@ -714,8 +741,8 @@ Cell[BoxData[
 
 Cell[BoxData[
  TemplateBox[{FrontEndObject[
-    LinkObject["2mr_shm", 3, 1]],23,
-   "FrontEndObject[LinkObject[\"2mr_shm\", 3, 1]]","23","\"Space Chase\""},
+    LinkObject["2zj_shm", 3, 1]],107,
+   "FrontEndObject[LinkObject[\"2zj_shm\", 3, 1]]","107","\"Space Chase\""},
   "NotebookObjectUnsaved"]], "Output",
  CellChangeTimes->{
   3.606230069254838*^9, {3.606230114689406*^9, 3.6062301440747843`*^9}, 
@@ -801,11 +828,19 @@ Cell[BoxData[
    3.606932986338969*^9, 3.606933219009286*^9, {3.606936874638373*^9, 
    3.606936949484453*^9}, 3.606937170060182*^9, {3.606937331085862*^9, 
    3.606937353824028*^9}, 3.606937384228505*^9, 3.606937475293858*^9, 
-   3.6069376112208548`*^9}]
-}, Open  ]]
+   3.6069376112208548`*^9, 3.606938167296579*^9, 3.606938268683646*^9, 
+   3.606938357314332*^9, 3.6069383924040337`*^9, 3.606938477495145*^9, 
+   3.606938640550909*^9, 3.606938762117374*^9, 3.606938963836426*^9, 
+   3.606939014559637*^9, 3.606939099933762*^9, 3.6069393390089006`*^9, 
+   3.606939502618925*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"ScheduledTasks", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.606939629600458*^9, 3.606939633476623*^9}}]
 },
-WindowSize->{873, 898},
-WindowMargins->{{Automatic, 27}, {Automatic, 0}},
+WindowSize->{873, 808},
+WindowMargins->{{Automatic, 58}, {Automatic, 0}},
 ShowSelection->True,
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
 2013)",
@@ -822,16 +857,17 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 5534, 110, 557, "Input"],
-Cell[6094, 132, 1023, 27, 97, "Input"],
-Cell[7120, 161, 19947, 464, 1960, "Input"],
-Cell[27070, 627, 225, 4, 28, "Input"],
-Cell[27298, 633, 226, 4, 28, "Input"],
-Cell[27527, 639, 3900, 67, 242, "Input"],
+Cell[557, 20, 5759, 113, 557, "Input"],
+Cell[6319, 135, 1023, 27, 97, "Input"],
+Cell[7345, 164, 20975, 488, 2079, "Input"],
+Cell[28323, 654, 225, 4, 28, "Input"],
+Cell[28551, 660, 226, 4, 28, "Input"],
+Cell[28780, 666, 3900, 67, 242, "Input"],
 Cell[CellGroupData[{
-Cell[31452, 710, 123, 2, 28, "Input"],
-Cell[31578, 714, 6245, 89, 41, "Output"]
-}, Open  ]]
+Cell[32705, 737, 123, 2, 28, "Input"],
+Cell[32831, 741, 6531, 93, 41, "Output"]
+}, Open  ]],
+Cell[39377, 837, 128, 2, 28, "Input"]
 }
 ]
 *)

@@ -14,6 +14,8 @@ moveRight
 moveLeft
 newGame
 
+destroyFrame
+
 initFrame
 initListener
 
@@ -122,7 +124,6 @@ initFrame[]:=Module[
 {},
 frame=JavaNew["com.wolfram.jlink.MathFrame"];
 frame@addKeyListener[listener];
-frame@setModal[];
 JavaShow[frame];
 (*ShowJavaConsole[];*)
 ]
