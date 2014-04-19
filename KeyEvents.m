@@ -108,6 +108,3 @@ System`out@println["Drawing player..."];
 End[]
 
 EndPackage[]
-
-
-
