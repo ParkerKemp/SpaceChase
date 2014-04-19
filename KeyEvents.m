@@ -74,7 +74,6 @@ moveLeft[]:=Module[
 mainMenu[]:=Module[
 {},
 	destroyFrame[];
-	Pause[1];
 	Switch[ChoiceDialog["Space Chase", {"New Game"->1,"Exit"->2}, Modal->True],
 		1, newGame[],
 		2, exitGame[]
@@ -89,6 +88,9 @@ newGame[]:=Module[
 	Global`playerRotation = 0;
 	Global`playerAngularMomentum = 0;
 	Global`accelerating = False;
+	Global`enemyPosition = {100,100};
+	Global`enemyVelocity= {0,0};
+	Global`enemyDestination = {0,0};
 	initFrame[];
 ]
 

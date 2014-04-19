@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     26914,        543]
-NotebookOptionsPosition[     26362,        520]
-NotebookOutlinePosition[     26738,        537]
-CellTagsIndexPosition[     26695,        534]
+NotebookDataLength[     38433,        830]
+NotebookOptionsPosition[     37839,        806]
+NotebookOutlinePosition[     38215,        823]
+CellTagsIndexPosition[     38172,        820]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -39,16 +39,24 @@ Cell[BoxData[{
   RowBox[{"shuttleSize", "=", 
    RowBox[{"60", "/", "environmentScale"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"environmentSize", "=", 
-   RowBox[{"windowSize", "*", "environmentScale"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"speed", " ", "=", " ", "0.3"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"environmentSize", "=", 
+    RowBox[{"windowSize", "*", "environmentScale"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"angularSpeed", "=", 
-    FractionBox["\[Pi]", "36"]}], ";"}], 
+   RowBox[{"frameRate", "=", "30"}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"speed", " ", "=", " ", "0.5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"enemySpeed", "=", "5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"angularSpeed", "=", 
+   FractionBox["\[Pi]", "18"]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"playerPath", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"lastRecordedTime", "=", 
@@ -116,7 +124,40 @@ Cell[BoxData[{
    3.606527251397829*^9}, 3.606527285196653*^9, {3.606528444037582*^9, 
    3.606528447847239*^9}, {3.606601567723527*^9, 3.6066015934793*^9}, {
    3.60660164413693*^9, 3.606601652138702*^9}, {3.606874637392604*^9, 
-   3.606874651415861*^9}}],
+   3.606874651415861*^9}, {3.60693121109732*^9, 3.606931293657467*^9}, {
+   3.6069313450230427`*^9, 3.606931363308169*^9}, {3.6069314324958982`*^9, 
+   3.606931456814453*^9}, {3.606932973754545*^9, 3.606932976176553*^9}, {
+   3.606936144334876*^9, 3.606936148614612*^9}, {3.606937482388883*^9, 
+   3.6069374826344223`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"futurePath", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"v", "=", "playerVelocity"}], ",", 
+      RowBox[{"p", "=", "playerLocation"}], ",", 
+      RowBox[{"a", "=", "playerAcceleration"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Return", "[", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"p", "=", 
+        RowBox[{"Mod", "[", 
+         RowBox[{
+          RowBox[{"p", "+", 
+           RowBox[{"(", 
+            RowBox[{"v", "+=", "a"}], ")"}]}], ",", "environmentSize"}], 
+         "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "1", ",", "60"}], "}"}]}], "]"}], 
+     "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]], "Input",\
+
+ CellChangeTimes->{{3.6069316567043667`*^9, 3.606931835653894*^9}, {
+  3.6069318756423273`*^9, 3.606931877600127*^9}, {3.606931953248023*^9, 
+  3.606931954096154*^9}, {3.606932751607682*^9, 3.606932756524983*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -129,8 +170,20 @@ Cell[BoxData[{
       RowBox[{"{", 
        RowBox[{"background", ",", "\[IndentingNewLine]", 
         RowBox[{"Dynamic", "[", 
-         RowBox[{"drawPlayer", "[", "]"}], "]"}]}], "\[IndentingNewLine]", 
-       "}"}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+         RowBox[{"Show", "[", 
+          RowBox[{
+           RowBox[{"drawPlayer", "[", "]"}], ",", 
+           RowBox[{"ListPlot", "[", 
+            RowBox[{"playerPath", ",", 
+             RowBox[{"PlotStyle", "\[Rule]", "Orange"}]}], "]"}], ",", 
+           RowBox[{"Graphics", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"PointSize", "[", "Large", "]"}], ",", "Red", ",", 
+              RowBox[{"Point", "[", "enemyPosition", "]"}], ",", "Green", ",", 
+              RowBox[{"Point", "[", "enemyDestination", "]"}]}], "}"}], 
+            "]"}]}], "]"}], "]"}]}], "\[IndentingNewLine]", "}"}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -272,7 +325,217 @@ Cell[BoxData[{
       "\[IndentingNewLine]", 
       RowBox[{"playerVelocity", "+=", "playerAcceleration"}], ";", 
       "\[IndentingNewLine]", 
-      RowBox[{"updatePlayerLocation", "[", "]"}]}]}], "\[IndentingNewLine]", 
+      RowBox[{"updatePlayerLocation", "[", "]"}], ";", "\[IndentingNewLine]", 
+      
+      RowBox[{"playerPath", "=", 
+       RowBox[{"futurePath", "[", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"updateAIVector", "[", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"enemyPosition", "+=", "enemyVelocity"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vectorToPoint", "[", 
+    RowBox[{"start_", ",", "end_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"diffx", ",", "diffy", ",", 
+       RowBox[{"vec", "=", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}]}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"diffx", "=", 
+       RowBox[{"Mod", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"end", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "-", 
+          RowBox[{"start", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], ",", 
+         RowBox[{"environmentSize", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"diffx", "<", 
+         FractionBox[
+          RowBox[{"environmentSize", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "2"]}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"vec", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "=", "diffx"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"vec", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "=", 
+         RowBox[{"diffx", "-", 
+          RowBox[{"environmentSize", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}]}], "\[IndentingNewLine]", "]"}],
+       ";", "\[IndentingNewLine]", 
+      RowBox[{"diffy", "=", 
+       RowBox[{"Mod", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"end", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "-", 
+          RowBox[{"start", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+         RowBox[{"environmentSize", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"diffy", "<", 
+         FractionBox[
+          RowBox[{"environmentSize", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "2"]}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"vec", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "=", "diffy"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"vec", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "=", 
+         RowBox[{"diffy", "-", 
+          RowBox[{"environmentSize", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}]}]}], "\[IndentingNewLine]", "]"}],
+       ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "vec", "]"}]}]}], "\[IndentingNewLine]", "]"}]}],
+   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"unitVector", "[", "v_", "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"v", "\[Equal]", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", "v", "]"}]}], "\[IndentingNewLine]", "]"}], ";",
+      "\[IndentingNewLine]", 
+     RowBox[{"Return", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        FractionBox[
+         RowBox[{"v", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], 
+         SqrtBox[
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"v", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "2"], "+", 
+           SuperscriptBox[
+            RowBox[{"v", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], "2"]}]]], ",", 
+        FractionBox[
+         RowBox[{"v", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], 
+         SqrtBox[
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"v", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "2"], "+", 
+           SuperscriptBox[
+            RowBox[{"v", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], "2"]}]]]}], "}"}], "]"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"getAIDestination", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "1"}], ",", 
+        RowBox[{"i", "<", 
+         RowBox[{"Length", "[", "playerPath", "]"}]}], ",", 
+        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           FractionBox[
+            RowBox[{"minDistance", "[", 
+             RowBox[{"enemyPosition", ",", 
+              RowBox[{"playerPath", "[", 
+               RowBox[{"[", "i", "]"}], "]"}]}], "]"}], "enemySpeed"], "<", 
+           "i"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"Return", "[", 
+           RowBox[{"playerPath", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "\[IndentingNewLine]", "]"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", 
+       RowBox[{"playerPath", "[", 
+        RowBox[{"[", 
+         RowBox[{"Length", "[", "playerPath", "]"}], "]"}], "]"}], "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"updateAIVector", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"enemyDestination", "=", 
+       RowBox[{"getAIDestination", "[", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"enemyVelocity", "=", 
+       RowBox[{
+        RowBox[{"unitVector", "[", 
+         RowBox[{"vectorToPoint", "[", 
+          RowBox[{"enemyPosition", ",", "enemyDestination"}], "]"}], "]"}], 
+        "*", "enemySpeed"}]}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"minDistance", "[", 
+    RowBox[{"p1_", ",", "p2_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"x", "=", 
+       RowBox[{"Abs", "[", 
+        RowBox[{
+         RowBox[{"p1", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", 
+         RowBox[{"p2", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"x", "=", 
+       RowBox[{"Min", "[", 
+        RowBox[{"x", ",", 
+         RowBox[{
+          RowBox[{"environmentSize", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "-", "x"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"y", "=", 
+       RowBox[{"Abs", "[", 
+        RowBox[{
+         RowBox[{"p1", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "-", 
+         RowBox[{"p2", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"y", "=", 
+       RowBox[{"Min", "[", 
+        RowBox[{"y", ",", 
+         RowBox[{
+          RowBox[{"environmentSize", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "-", "y"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", 
+       SqrtBox[
+        RowBox[{
+         SuperscriptBox["x", "2"], "+", 
+         SuperscriptBox["y", "2"]}]], "]"}]}]}], "\[IndentingNewLine]", 
     "]"}]}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"updatePlayerLocation", "[", "]"}], ":=", 
@@ -346,7 +609,21 @@ Cell[BoxData[{
    3.606527377838731*^9, 3.606527389222527*^9}, {3.606527441660735*^9, 
    3.606527446774741*^9}, {3.606528374141234*^9, 3.60652838176348*^9}, {
    3.606595286187399*^9, 3.6065952912617397`*^9}, {3.606595329825766*^9, 
-   3.6065953347143803`*^9}}],
+   3.6065953347143803`*^9}, {3.606931599223535*^9, 3.6069316022939053`*^9}, {
+   3.6069316419219*^9, 3.6069316471387*^9}, {3.6069319048908873`*^9, 
+   3.606931907873909*^9}, {3.6069329133130827`*^9, 3.606932966914783*^9}, {
+   3.6069330531577263`*^9, 3.606933083248157*^9}, {3.606933210953724*^9, 
+   3.6069332126779623`*^9}, {3.6069333061791153`*^9, 3.606933330162629*^9}, {
+   3.606933487571125*^9, 3.606933506113716*^9}, {3.606933638201248*^9, 
+   3.6069337447668953`*^9}, {3.606933986440618*^9, 3.606934049042328*^9}, {
+   3.606936108312739*^9, 3.606936131789819*^9}, {3.60693619678887*^9, 
+   3.606936230538746*^9}, {3.60693626784997*^9, 3.60693635711236*^9}, {
+   3.606936389683366*^9, 3.6069364517603693`*^9}, {3.6069364868789797`*^9, 
+   3.606936890455347*^9}, {3.606936935823015*^9, 3.606936938263547*^9}, {
+   3.6069370277759933`*^9, 3.606937141452886*^9}, {3.606937245777235*^9, 
+   3.606937316417225*^9}, 3.606937370638839*^9, {3.6069376034480867`*^9, 
+   3.606937620468272*^9}, 3.606937678709754*^9, {3.606937739361148*^9, 
+   3.606937743601097*^9}}],
 
 Cell[BoxData[
  RowBox[{"initJLink", "[", "]"}]], "Input",
@@ -370,8 +647,8 @@ Cell[BoxData[
      RowBox[{"KeyEvents`newGame", "[", "]"}], ";", "\[IndentingNewLine]", 
      RowBox[{"RunScheduledTask", "[", 
       RowBox[{
-       RowBox[{"gameLoop", "[", "]"}], ",", "0.02"}], "]"}], ";", 
-     "\[IndentingNewLine]", 
+       RowBox[{"gameLoop", "[", "]"}], ",", 
+       FractionBox["1", "frameRate"]}], "]"}], ";", "\[IndentingNewLine]", 
      RowBox[{"nb", "=", 
       RowBox[{"CreateDocument", "[", 
        RowBox[{
@@ -426,7 +703,8 @@ Cell[BoxData[
    3.606527170998165*^9, 3.6065271728924103`*^9}, {3.6065274116026487`*^9, 
    3.6065274117207737`*^9}, {3.606595135214346*^9, 3.606595158964355*^9}, {
    3.606874644371449*^9, 3.6068746596017647`*^9}, {3.60687474737385*^9, 
-   3.606874749740362*^9}, {3.6068761913780537`*^9, 3.606876194680354*^9}}],
+   3.606874749740362*^9}, {3.6068761913780537`*^9, 3.606876194680354*^9}, {
+   3.606931274600896*^9, 3.6069312773432407`*^9}}],
 
 Cell[CellGroupData[{
 
@@ -436,8 +714,8 @@ Cell[BoxData[
 
 Cell[BoxData[
  TemplateBox[{FrontEndObject[
-    LinkObject["jfe_shm", 3, 1]],171,
-   "FrontEndObject[LinkObject[\"jfe_shm\", 3, 1]]","171","\"Space Chase\""},
+    LinkObject["2mr_shm", 3, 1]],23,
+   "FrontEndObject[LinkObject[\"2mr_shm\", 3, 1]]","23","\"Space Chase\""},
   "NotebookObjectUnsaved"]], "Output",
  CellChangeTimes->{
   3.606230069254838*^9, {3.606230114689406*^9, 3.6062301440747843`*^9}, 
@@ -515,11 +793,19 @@ Cell[BoxData[
    3.606876966487837*^9, 3.60687698946982*^9}, 3.606877049293274*^9, {
    3.606877403560644*^9, 3.606877420693331*^9}, 3.606877858640606*^9, {
    3.606877964409524*^9, 3.606877998654255*^9}, 3.606878099341366*^9, 
-   3.606878607138644*^9}]
+   3.606878607138644*^9, {3.606924687873663*^9, 3.606924710343481*^9}, {
+   3.60692474484991*^9, 3.6069247535159273`*^9}, 3.606924829784445*^9, 
+   3.606930446947877*^9, {3.606931284674844*^9, 3.606931300115204*^9}, 
+   3.606931369377036*^9, {3.606931413181045*^9, 3.60693143781444*^9}, 
+   3.606931607563038*^9, 3.606931927175791*^9, 3.6069319604800377`*^9, 
+   3.606932986338969*^9, 3.606933219009286*^9, {3.606936874638373*^9, 
+   3.606936949484453*^9}, 3.606937170060182*^9, {3.606937331085862*^9, 
+   3.606937353824028*^9}, 3.606937384228505*^9, 3.606937475293858*^9, 
+   3.6069376112208548`*^9}]
 }, Open  ]]
 },
 WindowSize->{873, 898},
-WindowMargins->{{Automatic, 50}, {Automatic, 0}},
+WindowMargins->{{Automatic, 27}, {Automatic, 0}},
 ShowSelection->True,
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
 2013)",
@@ -536,14 +822,15 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 4950, 98, 489, "Input"],
-Cell[5510, 120, 10731, 228, 811, "Input"],
-Cell[16244, 350, 225, 4, 28, "Input"],
-Cell[16472, 356, 226, 4, 28, "Input"],
-Cell[16701, 362, 3823, 66, 199, "Input"],
+Cell[557, 20, 5534, 110, 557, "Input"],
+Cell[6094, 132, 1023, 27, 97, "Input"],
+Cell[7120, 161, 19947, 464, 1960, "Input"],
+Cell[27070, 627, 225, 4, 28, "Input"],
+Cell[27298, 633, 226, 4, 28, "Input"],
+Cell[27527, 639, 3900, 67, 242, "Input"],
 Cell[CellGroupData[{
-Cell[20549, 432, 123, 2, 28, "Input"],
-Cell[20675, 436, 5671, 81, 41, "Output"]
+Cell[31452, 710, 123, 2, 28, "Input"],
+Cell[31578, 714, 6245, 89, 41, "Output"]
 }, Open  ]]
 }
 ]
