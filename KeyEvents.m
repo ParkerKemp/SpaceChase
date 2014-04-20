@@ -1,7 +1,6 @@
 (* ::Package:: *)
 
-BeginPackage["KeyEvents`"]
-<< JLink`
+BeginPackage["KeyEvents`", {"JLink`", "Player`", "SpaceChase`"}]
 
 initJLink::usage="Initializes JLink, along with the things necessary for key event handling."
 
@@ -31,9 +30,9 @@ mapKeyUp[code]
 mapKeyUp[code_]:=Module[
 {},
 Switch[code,
-	KeyEvent`VKUUP, Global`accelerating = False,
-	KeyEvent`VKULEFT, Global`playerAngularMomentum = 0,
-	KeyEvent`VKURIGHT, Global`playerAngularMomentum = 0
+	KeyEvent`VKUUP, playerAccelerating = False,
+	KeyEvent`VKULEFT, playerAngMom = 0,
+	KeyEvent`VKURIGHT, playerAngMom = 0
 	]
 ]
 
@@ -45,62 +44,14 @@ mapKeyDown[code];
 mapKeyDown[code_]:=Module[
 {},
 Switch[code,
-	KeyEvent`VKUESCAPE,KeyEvents`mainMenu[],
-	KeyEvent`VKUUP,KeyEvents`moveUp[],
-	KeyEvent`VKUDOWN,KeyEvents`moveDown[],
-	KeyEvent`VKURIGHT,KeyEvents`moveRight[],
-	KeyEvent`VKULEFT,KeyEvents`moveLeft[]
+	KeyEvent`VKUESCAPE,mainMenu[],
+	KeyEvent`VKUUP,accelerate[],
+	KeyEvent`VKURIGHT,rotateRight[],
+	KeyEvent`VKULEFT,rotateLeft[]
 	]
 ]
 
-moveUp[]:=Module[
-{},
-	Global`accelerating = True;
-]
 
-moveDown[]:=Module[
-{},
-Return[0];
-]
-
-moveRight[]:=Module[
-{},
-	Global`playerAngularMomentum = -Global`angularSpeed;
-]
-
-moveLeft[]:=Module[
-{},
-	Global`playerAngularMomentum = Global`angularSpeed;
-]
-
-mainMenu[]:=Module[
-{},
-	destroyFrame[];
-	Switch[ChoiceDialog["Space Chase", {"New Game"->1,"Exit"->2}, Modal->True],
-		1, newGame[],
-		2, exitGame[]
-	]
-]
-
-newGame[]:=Module[
-{},
-	Global`playerLocation = Global`environmentSize / 2;
-	Global`playerVelocity = {0,0};
-	Global`playerAcceleration = {0,0};
-	Global`playerRotation = 0;
-	Global`playerAngularMomentum = 0;
-	Global`accelerating = False;
-	Global`enemyPosition = {100,100};
-	Global`enemyVelocity= {0,0};
-	Global`enemyDestination = {0,0};
-	initFrame[];
-]
-
-exitGame[]:=Module[
-{},
-RemoveScheduledTask[ScheduledTasks[]];
-NotebookClose[Global`nb];
-]
 
 keyTyped[e_,char_,code_]:=Module[
 {},
@@ -132,11 +83,6 @@ destroyFrame[]:=Module[
 {},
 frame@setVisible[False];
 frame@dispose[];
-]
-
-drawPlayer[]:=Module[
-{},
-System`out@println["Drawing player..."];
 ]
 
 End[]
