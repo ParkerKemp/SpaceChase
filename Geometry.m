@@ -1,11 +1,12 @@
 (* ::Package:: *)
 
-BeginPackage["Geometry`", {"Environment`", "AI`", "Player`"}]
+BeginPackage["Geometry`", {"Environment`", "Player`"}]
 
 vectorToPoint
 unitVector
 minDistance
 checkCollision
+angleFromVector
 
 Begin["Private`"]
 
@@ -22,6 +23,14 @@ vectorToPoint[start_,end_]:=Module[
 		vec[[2]]=diffy-environmentSize[[2]]
 	];
 	Return[vec]
+]
+
+angleFromVector[vec_]:=Module[
+	{unit=unitVector[vec]},
+	If[unit[[1]]<0,
+		Return[N[ArcTan[unit[[2]]/unit[[1]]]]+ \[Pi]],
+		Return[N[ArcTan[unit[[2]]/unit[[1]]]]]
+	]
 ]
 
 unitVector[v_] := Module[
@@ -41,14 +50,13 @@ minDistance[p1_, p2_] := Module[
 	Return[Sqrt[x^2+y^2]]
 ]
 
-checkCollision[] := Module[
+checkCollision[alienPos_, numAliens_] := Module[
 {i},
 	For[i = 1, i <= numAliens, i++,
-		Print["ASD"];
 		If[EuclideanDistance[alienPos[[i]], playerPos] < 60,
 			Return[True]
 		]
-	]
+	];
 	Return[False]
 ]
 

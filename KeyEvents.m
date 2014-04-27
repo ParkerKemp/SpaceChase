@@ -44,7 +44,7 @@ mapKeyDown[code];
 mapKeyDown[code_]:=Module[
 {},
 Switch[code,
-	KeyEvent`VKUESCAPE,mainMenu[],
+	KeyEvent`VKUESCAPE,SpaceChase`mainMenu[],
 	KeyEvent`VKUUP,accelerate[],
 	KeyEvent`VKURIGHT,rotateRight[],
 	KeyEvent`VKULEFT,rotateLeft[]
@@ -81,7 +81,7 @@ JavaShow[frame];
 
 destroyFrame[]:=Module[
 {},
-frame@setVisible[False];
+(*frame@setVisible[False];*)
 frame@dispose[];
 ]
 

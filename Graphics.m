@@ -22,12 +22,20 @@ loadImages[] := Module[
 			Import["background.png"]
 		]
 	];
+
+	alienShip=Image[
+		Show[
+			Import["AlienShip.png"],
+			ImageSize->shuttleSize,Background->None
+		],
+		ImageResolution->72
+	];
 ]
 
 drawScene[]:=DynamicModule[
 	{},
 	Overlay[{background,
-	Dynamic[Show[drawPlayer[],(*ListPlot[playerPath,PlotStyle\[Rule]Orange],*)Graphics[{PointSize[Large],Red,Point[alienPos](*,Green,Point[enemyDestination]*)}]]]
+	Dynamic[Show[drawPlayer[], drawAllAliens[], ListPlot[playerPath,PlotStyle->Orange](*,Green,Point[enemyDestination]*)]]
 	}]
 ]
 
@@ -47,6 +55,19 @@ drawPlayer[]:=Module[
 		AppendTo[imageList,Inset[Rotate[shuttle,playerRot],playerPos-{0,environmentSize[[2]]}]]
 	];
 	Return[Graphics[imageList,PlotRange->{{0,environmentSize[[1]]},{0,environmentSize[[2]]}},ImageSize->windowSize]]
+]
+
+drawAllAliens[]:=Module[
+	{i,graphicsList={}},
+	For[i = 1, i <= numAliens, i++,
+		AppendTo[graphicsList, drawAlien[i]];
+	];
+	Return[Graphics[graphicsList]];
+]
+
+drawAlien[index_]:=Module[
+	{},
+	Return[Inset[Rotate[alienShip, alienRot[[index]]], alienPos[[index]]]]
 ]
 
 End[]

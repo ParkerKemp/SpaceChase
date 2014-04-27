@@ -11,7 +11,7 @@ SpaceChase[] := Module[
 	{},
 	initJLink[];
 	initListener[];
-	
+	ShowJavaConsole[];
 	loadImages[];
 
 	newGame[];
@@ -28,7 +28,7 @@ gameLoop[]:=Module[
 	{},
 	updatePlayer[];
 	updateAliens[];
-	If[checkCollision[],
+	If[checkCollision[alienPos, numAliens],
 		destroyFrame[];
 		newGame[]
 	]
@@ -37,7 +37,7 @@ gameLoop[]:=Module[
 mainMenu[]:=Module[
 {},
 	destroyFrame[];
-	Switch[ChoiceDialog["Space Chase", {"New Game"->1,"Exit"->2}, Modal->True],
+	Switch[ChoiceDialog["Space Chase", {"New Game"->1,"Exit"->2}],
 		1, newGame[],
 		2, exitGame[]
 	]
