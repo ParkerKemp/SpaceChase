@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      1277,         49]
-NotebookOptionsPosition[       965,         33]
-NotebookOutlinePosition[      1345,         50]
-CellTagsIndexPosition[      1302,         47]
+NotebookDataLength[      1218,         46]
+NotebookOptionsPosition[       944,         31]
+NotebookOutlinePosition[      1322,         48]
+CellTagsIndexPosition[      1279,         45]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -24,15 +24,13 @@ Cell[BoxData[{
    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"<<", " ", "SpaceChase`"}], ";"}]}], "Input",
- CellChangeTimes->{{3.6069577648623123`*^9, 3.606957781501004*^9}}],
-
-Cell[BoxData[
- RowBox[{"SpaceChase", "[", "]"}]], "Input",
- CellChangeTimes->{{3.606957783580573*^9, 3.6069577852373877`*^9}}]
+  RowBox[{"<<", " ", "SpaceChase`"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"SpaceChase", "[", "]"}]}], "Input",
+ CellChangeTimes->{{3.6069577648623123`*^9, 3.606957781501004*^9}, {
+  3.607554404427359*^9, 3.607554404603389*^9}}]
 },
 WindowSize->{873, 808},
-WindowMargins->{{Automatic, -1059}, {Automatic, 81}},
+WindowMargins->{{Automatic, 72}, {Automatic, 332}},
 ShowSelection->True,
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
 2013)",
@@ -49,8 +47,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 275, 7, 46, "Input"],
-Cell[835, 29, 126, 2, 28, "Input"]
+Cell[557, 20, 383, 9, 63, "Input"]
 }
 ]
 *)

@@ -53,7 +53,7 @@ minDistance[p1_, p2_] := Module[
 checkCollision[alienPos_, numAliens_] := Module[
 {i},
 	For[i = 1, i <= numAliens, i++,
-		If[EuclideanDistance[alienPos[[i]], playerPos] < 60,
+		If[EuclideanDistance[alienPos[[i]], playerPos] < 30,
 			Return[True]
 		]
 	];

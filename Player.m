@@ -26,7 +26,7 @@ initPlayer[environmentSize_] := Module[
 	playerAngMom = 0;
 	playerAccelerating = False;
 	playerAngularSpeed = \[Pi] / 18;
-	playerSpeed = 0.5;
+	playerSpeed = 0.8;
 ]
 
 updatePlayer[] := Module[

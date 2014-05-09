@@ -10,8 +10,6 @@ Begin["Private`"]
 SpaceChase[] := Module[
 	{},
 	initJLink[];
-	initListener[];
-	ShowJavaConsole[];
 	loadImages[];
 
 	newGame[];
@@ -28,10 +26,23 @@ gameLoop[]:=Module[
 	{},
 	updatePlayer[];
 	updateAliens[];
+	incrementTextSize[];
+	incrementWarpField[];
 	If[checkCollision[alienPos, numAliens],
 		destroyFrame[];
 		newGame[]
 	]
+]
+
+nextLevel[]:= Module[
+	{},
+	level++;
+	textIncrement = 1;
+	textSize = 0;
+	If[OddQ[level],
+		beginWarp[],
+		alienSpeed += 2.0
+	];
 ]
 
 mainMenu[]:=Module[
@@ -48,6 +59,10 @@ newGame[] := Module[
 	initPlayer[environmentSize];
 	initAliens[];
 	initFrame[];
+	level = 0;
+	nextLevel[];
+	RemoveScheduledTask[levelTask];
+	levelTask = RunScheduledTask[nextLevel[], {10, \[Infinity]}];
 ]
 
 exitGame[]:=Module[

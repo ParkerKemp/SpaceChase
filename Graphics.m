@@ -4,6 +4,8 @@ BeginPackage["Graphics`", {"Environment`", "Player`", "AI`"}]
 
 loadImages
 drawScene
+incrementTextSize
+incrementWarpField
 
 Begin["Private`"]
 
@@ -35,26 +37,55 @@ loadImages[] := Module[
 drawScene[]:=DynamicModule[
 	{},
 	Overlay[{background,
-	Dynamic[Show[drawPlayer[], drawAllAliens[], ListPlot[playerPath,PlotStyle->Orange](*,Green,Point[enemyDestination]*)]]
+	Dynamic[Show[drawPlayer[], drawAllAliens[], drawWarpField[],(*ListPlot[playerPath,PlotStyle->Orange],*) Graphics[{Text[Style["Level " <> ToString[level], White, FontSize->textSize], environmentSize/2]}](*,Green,Point[enemyDestination]*)]]
 	}]
 ]
 
+incrementTextSize[]:=Module[
+	{},
+	textSize += textIncrement;
+	If[textSize > 40,
+		textSize = 40;
+		textIncrement = -textIncrement,
+		If[textSize < 0,
+			textSize = 0;
+			textIncrement = 0
+		]
+	]
+]
+
+incrementWarpField[] := Module[
+	{},
+	warpRadius += warpIncrement;
+	If[warpRadius > 150,
+		warpRadius = 150;
+		warpIncrement = -warpIncrement,
+	If[warpRadius < 0,
+		warpRadius = 0;
+		warpIncrement = 0;
+		warpOpacity = 0;
+		spawnNewAlien[];
+	]]
+]
+
+drawWarpField[] := Graphics[{Opacity[warpOpacity], Magenta, Circle[warpCenter, warpRadius]}]
+
 drawPlayer[]:=Module[
-	{imageList={Inset[Rotate[shuttle,playerRot],playerPos]}},
+	{imageList={Inset[Rotate[shuttle, playerRot], playerPos]}},
 	(* Only update when the key "UP" is pressed *)
 	If[playerPos[[1]] <= shuttleSize,
-		AppendTo[imageList,Inset[Rotate[shuttle,playerRot],playerPos+{environmentSize[[1]],0}]]
+		AppendTo[imageList,Inset[Rotate[shuttle, playerRot], playerPos + {environmentSize[[1]],0}]]
 	];
 	If[playerPos[[1]]>=environmentSize[[1]]-shuttleSize,
-		AppendTo[imageList,Inset[Rotate[shuttle,playerRot],playerPos-{environmentSize[[1]],0}]]
+		AppendTo[imageList,Inset[Rotate[shuttle, playerRot], playerPos - {environmentSize[[1]],0}]]
 	];
 	If[playerPos[[2]]<=shuttleSize,
-		AppendTo[imageList,Inset[Rotate[shuttle,playerRot],playerPos+{0,environmentSize[[2]]}]]
+		AppendTo[imageList,Inset[Rotate[shuttle, playerRot], playerPos + {0,environmentSize[[2]]}]]
 	];
-	If[playerPos[[2]]>=environmentSize[[2]]-shuttleSize,
-		AppendTo[imageList,Inset[Rotate[shuttle,playerRot],playerPos-{0,environmentSize[[2]]}]]
+	If[playerPos[[2]]>=environmentSize[[2]] - shuttleSize,
+		AppendTo[imageList,Inset[Rotate[shuttle, playerRot], playerPos - {0,environmentSize[[2]]}]]
 	];
-	Return[Graphics[imageList,PlotRange->{{0,environmentSize[[1]]},{0,environmentSize[[2]]}},ImageSize->windowSize]]
+	Return[Graphics[imageList,PlotRange->{{0,environmentSize[[1]]},{0,environmentSize[[2]]}}, ImageSize->windowSize]]
 ]
 
 drawAllAliens[]:=Module[
