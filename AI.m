@@ -34,14 +34,14 @@ initAliens[] := Module[
 	warpOpacity = 0;
 ]
 
-spawnNewAlien[] := Module[
+spawnNewAlien[mode_] := Module[
 	{},
 		numAliens++;
 		AppendTo[alienPos, newPos];(*playerPos + environmentSize/2];*)
 		AppendTo[alienVel, {0, 0}];
 		AppendTo[alienDest, {0, 0}];
 		AppendTo[alienRot, 0];
-		AppendTo[alienMode, 1];
+		AppendTo[alienMode, mode];
 		AppendTo[alienSpeedFactor, RandomReal[]/5+0.9];
 ]
 

@@ -54,7 +54,7 @@ incrementTextSize[]:=Module[
 	]
 ]
 
-incrementWarpField[] := Module[
+incrementWarpField[level_] := Module[
 	{},
 	warpRadius += warpIncrement;
 	If[warpRadius > 150,
@@ -64,7 +64,10 @@ incrementWarpField[] := Module[
 		warpRadius = 0;
 		warpIncrement = 0;
 		warpOpacity = 0;
-		spawnNewAlien[];
+		If[level == 1,
+			spawnNewAlien[2],
+			spawnNewAlien[1]
+		];
 	]]
 ]
 

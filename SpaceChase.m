@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-BeginPackage["SpaceChase`", {"Environment`", "Player`", "AI`", "Graphics`", "KeyEvents`", "Geometry`"}]
+BeginPackage["SpaceChase`", {"Environment`", "Player`", "AI`", "Graphics`", "KeyEvents`", "Geometry`", "Parallel`", "Audio`"}]
 
 SpaceChase
 mainMenu
@@ -11,7 +11,8 @@ SpaceChase[] := Module[
 	{},
 	initJLink[];
 	loadImages[];
-
+	startParallel[];
+	importSounds[];
 	newGame[];
 	RunScheduledTask[gameLoop[],1/frameRate];
 	nb=CreateDocument[Style[drawScene[],Background-> Black,Selectable->False,
@@ -27,8 +28,9 @@ gameLoop[]:=Module[
 	updatePlayer[];
 	updateAliens[];
 	incrementTextSize[];
-	incrementWarpField[];
+	incrementWarpField[level];
 	If[checkCollision[alienPos, numAliens],
+		playExplosion[];
 		destroyFrame[];
 		newGame[]
 	]
@@ -39,7 +41,7 @@ nextLevel[]:= Module[
 	level++;
 	textIncrement = 1;
 	textSize = 0;
-	If[OddQ[level],
+	If[EvenQ[level] || level == 1,
 		beginWarp[],
 		alienSpeed += 2.0
 	];
