@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-BeginPackage["KeyEvents`", {"JLink`", "Player`", "SpaceChase`"}]
+BeginPackage["KeyEvents`", {"JLink`", "Player`", "SpaceChase`", "Environment`"}]
 
 initJLink::usage="Initializes JLink, along with the things necessary for key event handling."
 
@@ -42,7 +42,12 @@ keyDown[e_,char_,code_]:=Module[
 mapKeyDown[code_]:=Module[
 	{},
 	Switch[code,
-		KeyEvent`VKUESCAPE,SpaceChase`mainMenu[],
+		KeyEvent`VKUESCAPE,
+			destroyFrame[];
+			If[gameOver,
+				SpaceChase`mainMenu[],
+				SpaceChase`continueMenu[]
+			],
 		KeyEvent`VKUUP,accelerate[],
 		KeyEvent`VKURIGHT,rotateRight[],
 		KeyEvent`VKULEFT,rotateLeft[]

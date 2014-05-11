@@ -1,0 +1,585 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     20112,        576]
+NotebookOptionsPosition[     17974,        501]
+NotebookOutlinePosition[     18505,        524]
+CellTagsIndexPosition[     18420,        519]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"LaunchKernels", "[", "x", "]"}]}], "Input",
+ CellChangeTimes->{{3.608667880608734*^9, 3.60866788350342*^9}, {
+  3.608668084678343*^9, 3.608668102551243*^9}, {3.608668155249897*^9, 
+  3.608668155333231*^9}, {3.608669026204924*^9, 3.608669026313591*^9}}],
+
+Cell[BoxData[
+ RowBox[{"KernelObject", "[", 
+  RowBox[{"1", ",", "\<\"local\"\>"}], "]"}]], "Output",
+ CellChangeTimes->{3.6086709513659163`*^9, 3.6086710144742603`*^9, 
+  3.6086712057906322`*^9, 3.6086713110795193`*^9, 3.6086713477794247`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "CreateScheduledTask"}]], "Input",
+ CellChangeTimes->{{3.608670050725552*^9, 3.608670053156679*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox["\<\"\!\(\*RowBox[{\\\"CreateScheduledTask\\\", \\\"[\\\", \
+StyleBox[\\\"expr\\\", \\\"TI\\\"], \\\"]\\\"}]\) creates a task that will \
+repeatedly evaluate \!\(\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\) once per \
+second.\\n\!\(\*RowBox[{\\\"CreateScheduledTask\\\", \\\"[\\\", \
+RowBox[{StyleBox[\\\"expr\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"time\\\", \
+\\\"TI\\\"]}], \\\"]\\\"}]\) creates a task that will repeatedly evaluate \
+\!\(\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\) every \!\(\*StyleBox[\\\"time\\\", \
+\\\"TI\\\"]\) seconds.\\n\!\(\*RowBox[{\\\"CreateScheduledTask\\\", \
+\\\"[\\\", RowBox[{StyleBox[\\\"expr\\\", \\\"TI\\\"], \\\",\\\", \
+RowBox[{\\\"{\\\", StyleBox[\\\"time\\\", \\\"TI\\\"], \\\"}\\\"}]}], \\\"]\\\
+\"}]\) creates a task that will evaluate \!\(\*StyleBox[\\\"expr\\\", \
+\\\"TI\\\"]\) once after \!\(\*StyleBox[\\\"time\\\", \\\"TI\\\"]\) \
+seconds.\\n\!\(\*RowBox[{\\\"CreateScheduledTask\\\", \\\"[\\\", \
+RowBox[{StyleBox[\\\"expr\\\", \\\"TI\\\"], \\\",\\\", RowBox[{\\\"{\\\", \
+RowBox[{StyleBox[\\\"time\\\", \\\"TI\\\"], \\\",\\\", \
+StyleBox[\\\"count\\\", \\\"TI\\\"]}], \\\"}\\\"}]}], \\\"]\\\"}]\) creates a \
+task that will try evaluating \!\(\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\) once \
+every \!\(\*StyleBox[\\\"time\\\", \\\"TI\\\"]\) seconds up to \
+\!\(\*StyleBox[\\\"count\\\", \\\"TI\\\"]\) times \
+total.\\n\!\(\*RowBox[{\\\"CreateScheduledTask\\\", \\\"[\\\", \
+RowBox[{StyleBox[\\\"expr\\\", \\\"TI\\\"], \\\",\\\", \
+StyleBox[\\\"timespec\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"start\\\", \\\
+\"TI\\\"]}], \\\"]\\\"}]\) creates a task that will evaluate \
+\!\(\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\) according to \
+\!\(\*StyleBox[\\\"timespec\\\", \\\"TI\\\"]\) starting at \
+\!\(\*StyleBox[\\\"start\\\", \\\"TI\\\"]\) time.\"\>", "MSG"], 
+  "\[NonBreakingSpace]", 
+  ButtonBox[
+   StyleBox["\[RightSkeleton]", "SR"],
+   Active->True,
+   BaseStyle->"Link",
+   ButtonData->"paclet:ref/CreateScheduledTask"]}]], "Print", "PrintUsage",
+ CellChangeTimes->{3.6086713481442327`*^9},
+ CellTags->"Info3608653347-2092037"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"qRunTask", "=", 
+   RowBox[{"CreateScheduledTask", "[", 
+    RowBox[{
+     RowBox[{"Parallel`Developer`QueueRun", "[", "]"}], ",", "0.001"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"StartScheduledTask", "[", "qRunTask", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ClearAll", "[", "AsynchronousEvaluate", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"AsynchronousEvaluate", ",", "HoldAll"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"AsynchronousEvaluate", "[", "exp_", "]"}], ":=", 
+  RowBox[{"DynamicModule", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"eval", ",", "display"}], "}"}], ",", 
+    RowBox[{
+     RowBox[{"display", "=", 
+      RowBox[{"eval", "=", 
+       RowBox[{"ParallelSubmit", "[", "exp", "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Dynamic", "[", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"MatchQ", "[", 
+          RowBox[{
+           RowBox[{"eval", "[", 
+            RowBox[{"[", "4", "]"}], "]"}], ",", 
+           RowBox[{"Parallel`Developer`finished", "[", "_", "]"}]}], "]"}], 
+         ",", 
+         RowBox[{"display", "=", 
+          RowBox[{
+           RowBox[{"eval", "[", 
+            RowBox[{"[", "4", "]"}], "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}], "]"}], ";", "display"}], 
+      "]"}]}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.608668571857582*^9, 3.608668578984434*^9}, {
+   3.6086700457167263`*^9, 3.6086700602659893`*^9}, 3.608670102837537*^9, {
+   3.6086708225604143`*^9, 3.60867082500568*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetSharedVariable", "[", "x", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DistributeDefinitions", "[", "x", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.608668700917267*^9, 3.608668710046332*^9}, {
+   3.608669242067655*^9, 3.608669249993202*^9}, 3.608670607008512*^9, 
+   3.608670649925432*^9, {3.6086707106028147`*^9, 3.608670713886601*^9}, {
+   3.608670934953759*^9, 3.608670941662778*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"test", "[", "]"}], " ", ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "1"}], ",", 
+        RowBox[{"i", "<", "100000"}], ",", 
+        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Print", "[", 
+          RowBox[{"Timing", "[", 
+           RowBox[{"x", "=", "100"}], "]"}], "]"}], ";"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"x", "=", "1000"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DistributeDefinitions", "[", "test", "]"}]}], "Input",
+ CellChangeTimes->{{3.608668803108549*^9, 3.608668845828417*^9}, {
+   3.608668897653702*^9, 3.608668918888929*^9}, {3.608668956959873*^9, 
+   3.608668957191348*^9}, {3.608669009733357*^9, 3.608669009882412*^9}, {
+   3.6086690752782288`*^9, 3.6086690858595257`*^9}, {3.6086692609726152`*^9, 
+   3.6086692758535233`*^9}, {3.608669339062855*^9, 3.6086693971327753`*^9}, {
+   3.6086697087459373`*^9, 3.608669713571109*^9}, {3.608669807545663*^9, 
+   3.6086698076544952`*^9}, {3.608669920515394*^9, 3.6086699246646748`*^9}, 
+   3.608670222892705*^9, {3.608670290420054*^9, 3.608670325041235*^9}, {
+   3.608670432958604*^9, 3.608670463989574*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Parallel`Kernels`receive", "::", "nothing"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"No pending evaluation on \
+\[NoBreak]\\!\\(KernelObject[\\(\\(5, \\\"local\\\"\\)\\)]\\)\[NoBreak], \
+cannot wait to receive anything.\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6086712091720877`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Parallel`Kernels`receive", "::", "nothing"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"No pending evaluation on \
+\[NoBreak]\\!\\(KernelObject[\\(\\(6, \\\"local\\\"\\)\\)]\\)\[NoBreak], \
+cannot wait to receive anything.\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6086712098612623`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Parallel`Kernels`receive", "::", "nothing"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"No pending evaluation on \
+\[NoBreak]\\!\\(KernelObject[\\(\\(7, \\\"local\\\"\\)\\)]\\)\[NoBreak], \
+cannot wait to receive anything.\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6086712105024*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \
+\[NoBreak]\\!\\(\\*StyleBox[\\(Parallel`Kernels`receive :: nothing\\), \
+\\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this calculation. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/stop\\\", \
+ButtonNote -> \\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6086712106120243`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  TagBox["test",
+   HoldForm], "}"}]], "Output",
+ CellChangeTimes->{
+  3.6086697140229597`*^9, 3.608669852038808*^9, {3.6086699263656797`*^9, 
+   3.6086699307030153`*^9}, 3.6086700051834087`*^9, 3.608670074394134*^9, 
+   3.608670112486367*^9, 3.6086702928020973`*^9, 3.608670372756589*^9, 
+   3.6086704510598183`*^9, 3.608670503336919*^9, 3.608670894971491*^9, 
+   3.6086710150020123`*^9, 3.608671210614592*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ParallelSubmit", "[", 
+  RowBox[{"test", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.608669591051078*^9, 3.608669615345702*^9}, {
+  3.6086696621809483`*^9, 3.608669667530267*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  FrameBox[
+   TemplateBox[{DynamicBox[
+      ToBoxes[
+       Parallel`Concurrency`Private`evalIcon[
+        ReplaceAll[
+         Parallel`Developer`ProcessState[
+          EvaluationObject[1, 
+           $CellContext`test[], Null, 
+           Parallel`Concurrency`Private`state$13764]], 
+         Parallel`Concurrency`Private`stateTrans]], StandardForm], 
+      ImageSizeCache -> {25., {10., 15.}}],InterpretationBox[
+      StyleBox[
+       GraphicsBox[{}, BaselinePosition -> Baseline, ImageSize -> {6, 0}], 
+       CacheGraphics -> False], 
+      Spacer[6]],TagBox[
+      GridBox[{{
+         PaneBox[
+          StyleBox[
+           TagBox[
+            RowBox[{"test", "[", "]"}], Short[#, 0.6]& ], StripOnInput -> 
+           False, FontSize -> Small], ImageSize -> {Full, 18}, 
+          ImageSizeAction -> "ResizeToFit"]}, {
+         DynamicBox[
+          ToBoxes[
+           Style[
+            ReplaceAll[
+             Parallel`Developer`ProcessState[
+              EvaluationObject[1, 
+               $CellContext`test[], Null, 
+               Parallel`Concurrency`Private`state$13764]], {
+             Parallel`Developer`created -> "new", Parallel`Developer`queued -> 
+              "ready for processing", Parallel`Developer`running[
+                Pattern[Parallel`Concurrency`Private`k, 
+                 Blank[]]] :> StringForm["running on kernel `1`", 
+                Parallel`Developer`KernelID[Parallel`Concurrency`Private`k]], 
+              Parallel`Developer`finished[
+                Pattern[Parallel`Concurrency`Private`r, 
+                 BlankNullSequence[]]] :> "received", 
+              Parallel`Developer`dequeued[
+                Pattern[Parallel`Concurrency`Private`r, 
+                 BlankNullSequence[]]] :> "finished", 
+              Pattern[Parallel`Concurrency`Private`e, 
+                Blank[]] :> Parallel`Concurrency`Private`e}], "Label", Gray], 
+           StandardForm], ImageSizeCache -> {89., {2., 7.}}]}}, 
+       DefaultBaseStyle -> "Column", 
+       GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+       GridBoxItemSize -> {"Columns" -> {{10}}, "Rows" -> {{Automatic}}}], 
+      "Column"]},
+    "RowDefault"],
+   Background->Dynamic[
+     Part[Parallel`Concurrency`Private`bgColors, 
+      ReplaceAll[
+       Parallel`Developer`ProcessState[
+        EvaluationObject[1, 
+         $CellContext`test[], Null, 
+         Parallel`Concurrency`Private`state$13764]], 
+       Parallel`Concurrency`Private`stateTrans]]],
+   FrameMargins->5,
+   FrameStyle->GrayLevel[0.5],
+   RoundingRadius->6,
+   StripOnInput->False],
+  EvaluationObject[1, 
+   $CellContext`test[], Null, 
+   Parallel`Concurrency`Private`state$13764]]], "Output",
+ CellChangeTimes->{{3.608669609564467*^9, 3.608669616244423*^9}, {
+   3.60866965878106*^9, 3.608669718975634*^9}, 3.608669852101782*^9, 
+   3.608669930793688*^9, 3.60867000524345*^9, 3.608670074441613*^9, 
+   3.608670112920218*^9, 3.608670372987061*^9, 3.608670451104454*^9, 
+   3.6086705037793493`*^9, 3.6086710155128107`*^9, 3.608671210868389*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["x"], "Input",
+ CellChangeTimes->{
+  3.6086696010496273`*^9, {3.608669774994883*^9, 3.608669777306595*^9}}],
+
+Cell[BoxData["100"], "Output",
+ CellChangeTimes->{{3.608669677697933*^9, 3.608669777979162*^9}, {
+   3.608669852168254*^9, 3.608669854807845*^9}, {3.608669894190866*^9, 
+   3.608669930838715*^9}, 3.6086700052832623`*^9, 3.6086700745570707`*^9, 
+   3.608670113083461*^9, 3.608670373034767*^9, 3.608670451156743*^9, 
+   3.608670504042297*^9, 3.608671015719314*^9, 3.608671210961833*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Print", "[", 
+  RowBox[{"Timing", "[", 
+   RowBox[{"x", "=", "100"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.608670139123218*^9, 3.608670200853191*^9}, {
+  3.608670273959178*^9, 3.608670277097035*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00001200000000000000030401028916493544`1.0997811593272493", ",", "100"}],
+   "}"}]], "Print",
+ CellChangeTimes->{3.608671015802894*^9, 3.608671211061788*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ScheduledTasks", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.608669865852*^9, 3.608669868224312*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"ScheduledTaskObject", "[", 
+   RowBox[{"4", ",", 
+    TagBox[
+     RowBox[{"Parallel`Developer`QueueRun", "[", "]"}],
+     HoldForm], ",", 
+    RowBox[{"{", 
+     RowBox[{"0.001`", ",", "\[Infinity]"}], "}"}], ",", "Automatic", ",", 
+    "True"}], "]"}], "}"}]], "Output",
+ CellChangeTimes->{3.608669868665666*^9, 3.608669930922484*^9, 
+  3.608670005358365*^9, 3.608670074670384*^9, 3.608670113451302*^9, 
+  3.60867037319925*^9, 3.608670451280411*^9, 3.6086705043413363`*^9, 
+  3.608671015870036*^9, 3.608671211232004*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.608669793698504*^9, 3.608669794499382*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Kernels", "[", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ScheduledTasks", "[", "]"}]}], "Input",
+ CellChangeTimes->{{3.6086696265533667`*^9, 3.608669628430848*^9}, {
+  3.608670408351076*^9, 3.608670410348681*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00017400000000000000102001740387436257`2.261149161562224", ",", "100"}], 
+  "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671210755624*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00015599999999999999717587018110975805`2.213724511634086", ",", "100"}], 
+  "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671210797035*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00016100000000000001029037965949441968`2.227425789311474", ",", "100"}], 
+  "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671210815777*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00014799999999999999245568760297686595`2.1908616286745812", ",", "100"}],
+   "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671210832869*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.0001489999999999999896575786362262761`2.193786181691898", ",", "100"}], 
+  "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671210851338*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00016599999999999999629983482574147047`2.240708001319679", ",", "100"}], 
+  "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671210915071*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00022900000000000000975435010541758629`2.380435395619512", ",", "100"}], 
+  "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671211014192*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00020799999999999998719947547076714045`2.3386632482423857", ",", "100"}],
+   "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671211113999*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00021599999999999999191965804890003255`2.355053664430555", ",", "100"}], 
+  "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671211219973*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00020399999999999999839191133776949982`2.3302300807055225", ",", "100"}],
+   "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.6086712112802963`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00019000000000000001046038256014014678`2.2993535142324526", ",", "100"}],
+   "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.6086712113152933`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00014500000000000000085001450322863548`2.181967915514599", ",", "100"}], 
+  "}"}]], "Print",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.608671211361113*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"KernelObject", "[", 
+    RowBox[{"5", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"KernelObject", "[", 
+    RowBox[{"6", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"KernelObject", "[", 
+    RowBox[{"7", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"KernelObject", "[", 
+    RowBox[{"8", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"KernelObject", "[", 
+    RowBox[{"9", ",", "\<\"local\"\>"}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.608671016006773*^9, 3.6086712113724318`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"ScheduledTaskObject", "[", 
+   RowBox[{"4", ",", 
+    TagBox[
+     RowBox[{"Parallel`Developer`QueueRun", "[", "]"}],
+     HoldForm], ",", 
+    RowBox[{"{", 
+     RowBox[{"0.001`", ",", "\[Infinity]"}], "}"}], ",", "Automatic", ",", 
+    "True"}], "]"}], "}"}]], "Output",
+ CellChangeTimes->{3.608671016006773*^9, 3.608671211378047*^9}]
+}, Open  ]]
+},
+WindowSize->{740, 708},
+WindowMargins->{{Automatic, 249}, {Automatic, 0}},
+ShowSelection->True,
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info3608653347-2092037"->{
+  Cell[1339, 43, 2106, 35, 138, "Print",
+   CellTags->"Info3608653347-2092037"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info3608653347-2092037", 18315, 513}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 345, 6, 46, "Input"],
+Cell[927, 30, 244, 4, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1208, 39, 128, 2, 28, "Input"],
+Cell[1339, 43, 2106, 35, 138, "Print",
+ CellTags->"Info3608653347-2092037"]
+}, Open  ]],
+Cell[3460, 81, 1644, 45, 165, "Input"],
+Cell[5107, 128, 516, 11, 63, "Input"],
+Cell[CellGroupData[{
+Cell[5648, 143, 1425, 29, 148, "Input"],
+Cell[7076, 174, 346, 8, 24, "Message"],
+Cell[7425, 184, 346, 8, 24, "Message"],
+Cell[7774, 194, 342, 8, 24, "Message"],
+Cell[8119, 204, 552, 11, 24, "Message"],
+Cell[8674, 217, 440, 9, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9151, 231, 210, 4, 28, "Input"],
+Cell[9364, 237, 3055, 70, 64, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12456, 312, 120, 2, 28, "Input"],
+Cell[12579, 316, 384, 5, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13000, 326, 232, 5, 28, "Input"],
+Cell[13235, 333, 202, 5, 21, "Print"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13474, 343, 125, 2, 28, "Input"],
+Cell[13602, 347, 562, 13, 46, "Output"]
+}, Open  ]],
+Cell[14179, 363, 92, 1, 28, "Input"],
+Cell[CellGroupData[{
+Cell[14296, 368, 237, 4, 46, "Input"],
+Cell[CellGroupData[{
+Cell[14558, 376, 201, 6, 21, "Print"],
+Cell[14762, 384, 201, 6, 21, "Print"],
+Cell[14966, 392, 201, 6, 21, "Print"],
+Cell[15170, 400, 202, 6, 21, "Print"],
+Cell[15375, 408, 200, 6, 21, "Print"],
+Cell[15578, 416, 201, 6, 21, "Print"],
+Cell[15782, 424, 201, 6, 21, "Print"],
+Cell[15986, 432, 202, 6, 21, "Print"],
+Cell[16191, 440, 201, 6, 21, "Print"],
+Cell[16395, 448, 204, 6, 21, "Print"],
+Cell[16602, 456, 204, 6, 21, "Print"],
+Cell[16809, 464, 201, 6, 21, "Print"]
+}, Open  ]],
+Cell[17025, 473, 554, 13, 46, "Output"],
+Cell[17582, 488, 376, 10, 46, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

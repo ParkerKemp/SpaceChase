@@ -1,16 +1,56 @@
 (* ::Package:: *)
 
-BeginPackage["Graphics`", {"Environment`", "Player`", "AI`"}]
+BeginPackage["Graphics`", {"Environment`", "Player`", "AI`", "Particles`"}]
 
-loadImages
+initGraphics
+reloadGraphics
 drawScene
-incrementTextSize
-incrementWarpField
+incrementAnimations
+beginWarpAnimation
+beginExplosionAnimation
+
+shuttle
 
 Begin["Private`"]
 
-loadImages[] := Module[
+initGraphics[] := Module[
 	{},
+	shuttleParts = Table[0, {5}];
+	alienParts = Table[0, {5}];
+	reloadGraphics[];
+]
+
+reloadGraphics[] := Module[
+	{},
+	loadImages[];
+	loadAnimations[];
+	initParticleEngine[];
+]
+
+loadAnimations[] := Module[
+	{},
+	aniCenter = 1;
+	aniIncrement = 2;
+	aniOpacity = 3;
+	warpAnimation = {{0, 0}, 0, 0};
+	explosionAnimation = {{0, 0}, 0, 0};
+]
+
+beginWarpAnimation[] := Module[
+	{},
+	nextAlienPos = randomAlienPos[];
+	warpAnimation[[aniCenter]] = nextAlienPos;		
+	warpAnimation[[aniIncrement]] = 10;
+	warpAnimation[[aniOpacity]] = 1;
+]
+
+beginExplosionAnimation[vel_] := Module[
+	{},
+	createParticles[playerPos, playerVel + vel];
+]
+
+loadImages[] := Module[
+	{i},
 	shuttle=Image[
 		Show[
 			Import["Shuttle.png"],
@@ -32,13 +72,36 @@ loadImages[] := Module[
 		],
 		ImageResolution->72
 	];
+
+	For[i = 1, i < 5, i++,
+		shuttleParts[[i]] = 
+			Image[Show[Import["ShuttlePart" <> ToString[i] <> ".png"],
+				ImageSize->shuttleSize,Background->None
+				],
+				ImageResolution->72
+			];
+
+		alienParts[[i]] =  
+			Image[Show[Import["AlienPart" <> ToString[i] <> ".png"],
+				ImageSize->shuttleSize,Background->None
+				],
+				ImageResolution->72
+			];
+	]
 ]
 
 drawScene[]:=DynamicModule[
 	{},
 	Overlay[{background,
-	Dynamic[Show[drawPlayer[], drawAllAliens[], drawWarpField[],(*ListPlot[playerPath,PlotStyle->Orange],*) Graphics[{Text[Style["Level " <> ToString[level], White, FontSize->textSize], environmentSize/2]}](*,Green,Point[enemyDestination]*)]]
+	Dynamic[Show[drawPlayer[], drawAllAliens[], drawWarpField[], drawParticles[],(*ListPlot[playerPath,PlotStyle->Orange],*) Graphics[{Text[Style["Level " <> ToString[level], White, FontSize->textSize], environmentSize/2]}](*,Green,Point[enemyDestination]*)]]
 	}]
+]
+
+incrementAnimations[level_] := Module[
+	{},
+	incrementTextSize[];
+	incrementWarpField[level];
+	incrementParticles[];
 ]
 
 incrementTextSize[]:=Module[
@@ -56,26 +119,41 @@ incrementTextSize[]:=Module[
 
 incrementWarpField[level_] := Module[
 	{},
-	warpRadius += warpIncrement;
-	If[warpRadius > 150,
-		warpRadius = 150;
-		warpIncrement = -warpIncrement,
-	If[warpRadius < 0,
-		warpRadius = 0;
-		warpIncrement = 0;
-		warpOpacity = 0;
-		If[level == 1,
-			spawnNewAlien[2],
-			spawnNewAlien[1]
-		];
-	]]
+	warpRadius += warpAnimation[[aniIncrement]];
+	If[warpRadius > 180,
+		warpRadius = 180;
+		warpAnimation[[aniIncrement]] = -warpAnimation[[aniIncrement]],
+		If[warpRadius < 0,
+			warpRadius = 0;
+			warpAnimation[[aniIncrement]] = 0;
+			warpAnimation[[aniOpacity]] = 0;
+			If[level == 1,
+				spawnNewAlien[nextAlienPos, 2],
+				spawnNewAlien[nextAlienPos, 1]
+			];
+		]
+	]
 ]
 
-drawWarpField[] := Graphics[{Opacity[warpOpacity], Magenta, Circle[warpCenter, warpRadius]}]
+drawParticles[] := Module[
+	{imageList = {}},
+	For[i = 1, i < numParticles / 2, i++,
+		AppendTo[imageList, Inset[Rotate[shuttleParts[[i]], parRot[[i]]], parPos[[i]]]];
+		AppendTo[imageList, Inset[Rotate[alienParts[[i]], parRot[[i + 5]]], parPos[[i + 5]]]];
+	];
+
+	Return[Graphics[imageList]];
+]
+
+(*drawExplosion[] := Graphics[{Opacity[*)
+
+drawWarpField[] := Graphics[{Opacity[warpAnimation[[aniOpacity]]], Magenta, Circle[warpAnimation[[aniCenter]], warpRadius]}]
 
 drawPlayer[]:=Module[
-	{imageList={Inset[Rotate[shuttle, playerRot], playerPos]}},
-	(* Only update when the key "UP" is pressed *)
+	{imageList={}},
+
+	AppendTo[imageList, Inset[Rotate[shuttle, playerRot], playerPos]];
+	
 	If[playerPos[[1]] <= shuttleSize,
 		AppendTo[imageList,Inset[Rotate[shuttle, playerRot], playerPos + {environmentSize[[1]],0}]]
 	];
@@ -107,3 +185,6 @@ drawAlien[index_]:=Module[
 End[]
 
 EndPackage[]
+
+
+

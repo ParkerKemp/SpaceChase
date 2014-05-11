@@ -10,6 +10,7 @@ frameRate
 level
 textSize
 textIncrement
+gameOver
 
 Begin["Private`"]
 
@@ -21,6 +22,7 @@ frameRate = 30;
 level = 1;
 textSize = 0;
 textIncrement = 0;
+gameOver = False;
 
 End[]
 

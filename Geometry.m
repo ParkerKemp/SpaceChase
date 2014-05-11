@@ -4,6 +4,9 @@ BeginPackage["Geometry`", {"Environment`", "Player`"}]
 
 vectorToPoint
 unitVector
+unitVectorFromAngle
+vectorMagnitude
+vectorVarianceFromAngle
 minDistance
 checkCollision
 angleFromVector
@@ -27,19 +30,37 @@ vectorToPoint[start_,end_]:=Module[
 
 angleFromVector[vec_]:=Module[
 	{unit=unitVector[vec]},
-	If[unit[[1]]<0,
+	If[unit[[1]] < 0,
 		Return[N[ArcTan[unit[[2]]/unit[[1]]]]+ \[Pi]],
+	];
+
+	If[unit[[1]] > 0,
 		Return[N[ArcTan[unit[[2]]/unit[[1]]]]]
-	]
+	];
+
+	If[unit[[2]] > 0,
+		Return[N[\[Pi]/2]],
+		Return[N[3 \[Pi]/2]]
+	];
 ]
+
+unitVectorFromAngle[ang_] := {Cos[ang], Sin[ang]}
 
 unitVector[v_] := Module[
 	{},
 	If[v == {0,0},
 		Return[v]
 	];
-	Return[{v[[1]]/Sqrt[v[[1]]^2+v[[2]]^2],v[[2]]/Sqrt[v[[1]]^2+v[[2]]^2]}]
+	Return[{v[[1]]/vectorMagnitude[v],v[[2]]/vectorMagnitude[v]}]
 ]
+
+vectorVarianceFromAngle[ang_, var_] := Module[
+	{adjust},
+	adjust = RandomReal[] * 2 var + 1 - var;
+	Return[unitVectorFromAngle[adjust * ang]];
+]
+
+vectorMagnitude[vec_] := Sqrt[vec[[1]]^2 + vec[[2]]^2]
 
 minDistance[p1_, p2_] := Module[
 	{x, y},
@@ -54,10 +75,10 @@ checkCollision[alienPos_, numAliens_] := Module[
 {i},
 	For[i = 1, i <= numAliens, i++,
 		If[EuclideanDistance[alienPos[[i]], playerPos] < 30,
-			Return[True]
+			Return[i]
 		]
 	];
-	Return[False]
+	Return[0]
 ]
 
 End[]

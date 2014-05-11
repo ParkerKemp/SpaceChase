@@ -5,7 +5,8 @@ BeginPackage["AI`", {"Player`", "Environment`", "Geometry`"}]
 initAliens
 updateAliens
 spawnNewAlien
-beginWarp
+randomAlienPos
+deleteAlien
 
 numAliens
 alienPos
@@ -34,7 +35,18 @@ initAliens[] := Module[
 	warpOpacity = 0;
 ]
 
-spawnNewAlien[mode_] := Module[
+deleteAlien[index_] := Module[
+	{},
+	alienMode = Delete[alienMode, index];
+	alienPos = Delete[alienPos, index];
+	alienVel = Delete[alienVel, index];
+	alienDest = Delete[alienDest, index];
+	alienRot = Delete[alienRot, index];
+	alienSpeedFactor = Delete[alienSpeedFactor, index];
+	numAliens--;
+]
+
+spawnNewAlien[newPos_, mode_] := Module[
 	{},
 		numAliens++;
 		AppendTo[alienPos, newPos];(*playerPos + environmentSize/2];*)
@@ -45,13 +57,7 @@ spawnNewAlien[mode_] := Module[
 		AppendTo[alienSpeedFactor, RandomReal[]/5+0.9];
 ]
 
-beginWarp[] := Module[
-	{},
-	newPos = {RandomInteger[{0, environmentSize[[1]]}], RandomInteger[{0, environmentSize[[2]]}]};		
-	warpCenter = newPos;
-	warpIncrement = 10;
-	warpOpacity = 1;
-]
+randomAlienPos[] := {RandomInteger[{0, environmentSize[[1]]}], RandomInteger[{0, environmentSize[[2]]}]};
 
 updateAliens[] := Module[
 	{i},
@@ -92,6 +98,9 @@ getAIDestination[index_] := Module[
 
 updateAIVectors[]:=Module[
 	{i},
+	If[gameOver,
+		Return[]
+	];
 	For[i = 1, i <= numAliens, i++,
 		alienDest[[i]] = getAIDestination[i];
 		alienVel[[i]] = unitVector[vectorToPoint[alienPos[[i]], alienDest[[i]]]] * (alienSpeed * alienSpeedFactor[[i]]);
