@@ -49,8 +49,11 @@ beginWarpAnimation[] := Module[
 	{},
 	nextAlienPos = randomAlienPos[];
 	warpAnimation[[aniCenter]] = nextAlienPos;		
-	warpAnimation[[aniIncrement]] = 2.5;
+	warpAnimation[[aniIncrement]] = 10;
 	warpAnimation[[aniOpacity]] = 1;
+	warpAnimation[[aniSize]] = 0;
+	warpAnimation[[aniMax]] = 180;
+	debugTime = AbsoluteTime[];
 ]
 
 beginExplosionAnimation[vel_] := Module[
@@ -58,7 +61,7 @@ beginExplosionAnimation[vel_] := Module[
 	createParticles[playerPos, (playerVel + vel)/2];
 	For[i = 1, i <= 10, i++,
 		(*With[{inc = RandomInteger[{3, 4}], max = RandomInteger*)
-		explosionAnimation[[i]] = {{0, 0}, RandomInteger[{1, 2}], 1, RandomInteger[{24, 36}], 0};
+		explosionAnimation[[i]] = {{0, 0}, RandomInteger[{4, 8}], 1, RandomInteger[{24, 36}], 0};
 	]
 ]
 
@@ -159,6 +162,7 @@ incrementBurst[burst_, level_] := Module[
 			ret[[aniIncrement]] = 0;
 			ret[[aniOpacity]] = 0;
 			If[level > 0,
+				Print[AbsoluteTime[] - debugTime];
 				If[level == 1, 
 					spawnNewAlien[nextAlienPos, 2],
 					spawnNewAlien[nextAlienPos, 1]
@@ -206,7 +210,7 @@ drawExplosion[] := Module[
 	Return[Graphics[list]]
 ]
 
-drawWarpField[] := Graphics[{Opacity[warpAnimation[[aniOpacity]]], Magenta, Circle[warpAnimation[[aniCenter]], warpRadius]}]
+drawWarpField[] := Graphics[{Opacity[warpAnimation[[aniOpacity]]], Magenta, Circle[warpAnimation[[aniCenter]], warpAnimation[[aniSize]]]}]
 
 drawPlayer[]:=Module[
 	{imageList={}},
