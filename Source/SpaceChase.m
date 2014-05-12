@@ -39,7 +39,7 @@ gameLoop[]:=Module[
 		beginExplosionAnimation[alienVel[[collision]]];
 		deleteAlien[collision];
 		gameOver = True;
-		textObjects[[2]][[textIncrement]] = 1;
+		textObjects[[2]][[textIncrement]] = 2;
 		textObjects[[2]][[textValue]] = "GAME OVER";
 		textObjects[[2]][[textColor]] = Red;
 		textObjects[[2]][[textSize]] = 0;
@@ -47,6 +47,14 @@ gameLoop[]:=Module[
 		textObjects[[2]][[textMax]] = 72;
 		textObjects[[2]][[textBounce]] = False;
 		textObjects[[2]][[textCenter]] = environmentSize / 2;
+		textObjects[[1]][[textIncrement]] = 1;
+		textObjects[[1]][[textValue]] = "Level " <> ToString[level];
+		textObjects[[1]][[textColor]] = Red;
+		textObjects[[1]][[textSize]] = 0;
+		textObjects[[1]][[textOpacity]] = 1;
+		textObjects[[1]][[textMax]] = 60;
+		textObjects[[1]][[textBounce]] = False;
+		textObjects[[1]][[textCenter]] = {environmentSize[[1]]/2, environmentSize[[2]]/2 - 200};
 		shuttle = SetAlphaChannel[shuttle, 0];
 		If[ValueQ[levelTask],
 			RemoveScheduledTask[levelTask];

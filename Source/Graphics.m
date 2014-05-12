@@ -162,7 +162,6 @@ incrementBurst[burst_, level_] := Module[
 			ret[[aniIncrement]] = 0;
 			ret[[aniOpacity]] = 0;
 			If[level > 0,
-				Print[AbsoluteTime[] - debugTime];
 				If[level == 1, 
 					spawnNewAlien[nextAlienPos, 2],
 					spawnNewAlien[nextAlienPos, 1]
