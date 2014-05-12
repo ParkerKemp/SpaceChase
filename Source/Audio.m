@@ -10,8 +10,8 @@ Begin["Private`"]
 
 importSounds[] := Module[
 	{},
-	explosionSound = Import["explosion1.wav"];
-	warpSound = Import["warp.wav"];
+	explosionSound = Import["Audio/explosion1.wav"];
+	warpSound = Import["Audio/warp.wav"];
 ]
 
 playExplosion[] := Module[

@@ -54,7 +54,7 @@ newParticle[pos_, ang_, speed_] := Module[
 	AppendTo[parPos, pos];
 	AppendTo[parVec, vectorVarianceFromAngle[ang, 0.2] * speed * variance[0.25]];
 	AppendTo[parRot, 0];
-	AppendTo[parAng, RandomReal[] * 2\[Pi]];
+	AppendTo[parAng, RandomReal[] * \[Pi]/2];
 ]
 
 variance[var_] := RandomReal[] * 2 var + 1 - var

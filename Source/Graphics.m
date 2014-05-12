@@ -3,6 +3,7 @@
 BeginPackage["Graphics`", {"Environment`", "Player`", "AI`", "Particles`"}]
 
 initGraphics
+resetGraphics
 reloadGraphics
 drawScene
 incrementAnimations
@@ -17,14 +18,21 @@ initGraphics[] := Module[
 	{},
 	shuttleParts = Table[0, {5}];
 	alienParts = Table[0, {5}];
+	dummyAnimation = {{0, 0}, 0, 0, 0, 0};
+	explosionAnimation = Table[dummyAnimation, {10}];
+	resetGraphics[];
 	reloadGraphics[];
+]
+
+resetGraphics[] := Module[
+	{},
+	loadAnimations[];
+	initParticleEngine[];
 ]
 
 reloadGraphics[] := Module[
 	{},
 	loadImages[];
-	loadAnimations[];
-	initParticleEngine[];
 ]
 
 loadAnimations[] := Module[
@@ -32,28 +40,33 @@ loadAnimations[] := Module[
 	aniCenter = 1;
 	aniIncrement = 2;
 	aniOpacity = 3;
-	warpAnimation = {{0, 0}, 0, 0};
-	explosionAnimation = {{0, 0}, 0, 0};
+	aniMax = 4;
+	aniSize = 5;
+	warpAnimation = {{0, 0}, 0, 0, 0, 0};
 ]
 
 beginWarpAnimation[] := Module[
 	{},
 	nextAlienPos = randomAlienPos[];
 	warpAnimation[[aniCenter]] = nextAlienPos;		
-	warpAnimation[[aniIncrement]] = 10;
+	warpAnimation[[aniIncrement]] = 2.5;
 	warpAnimation[[aniOpacity]] = 1;
 ]
 
 beginExplosionAnimation[vel_] := Module[
-	{},
-	createParticles[playerPos, playerVel + vel];
+	{i},
+	createParticles[playerPos, (playerVel + vel)/2];
+	For[i = 1, i <= 10, i++,
+		(*With[{inc = RandomInteger[{3, 4}], max = RandomInteger*)
+		explosionAnimation[[i]] = {{0, 0}, RandomInteger[{1, 2}], 1, RandomInteger[{24, 36}], 0};
+	]
 ]
 
 loadImages[] := Module[
 	{i},
 	shuttle=Image[
 		Show[
-			Import["Shuttle.png"],
+			Import["Textures/Shuttle.png"],
 			ImageSize->shuttleSize,Background->None
 		],
 		ImageResolution->72
@@ -61,13 +74,13 @@ loadImages[] := Module[
 
 	background = Image[
 		Show[
-			Import["background.png"]
+			Import["Textures/background.png"]
 		]
 	];
 
 	alienShip=Image[
 		Show[
-			Import["AlienShip.png"],
+			Import["Textures/AlienShip.png"],
 			ImageSize->shuttleSize,Background->None
 		],
 		ImageResolution->72
@@ -75,14 +88,14 @@ loadImages[] := Module[
 
 	For[i = 1, i < 5, i++,
 		shuttleParts[[i]] = 
-			Image[Show[Import["ShuttlePart" <> ToString[i] <> ".png"],
+			Image[Show[Import["Textures/ShuttlePart" <> ToString[i] <> ".png"],
 				ImageSize->shuttleSize,Background->None
 				],
 				ImageResolution->72
 			];
 
 		alienParts[[i]] =  
-			Image[Show[Import["AlienPart" <> ToString[i] <> ".png"],
+			Image[Show[Import["Textures/AlienPart" <> ToString[i] <> ".png"],
 				ImageSize->shuttleSize,Background->None
 				],
 				ImageResolution->72
@@ -93,28 +106,67 @@ loadImages[] := Module[
 drawScene[]:=DynamicModule[
 	{},
 	Overlay[{background,
-	Dynamic[Show[drawPlayer[], drawAllAliens[], drawWarpField[], drawParticles[],(*ListPlot[playerPath,PlotStyle->Orange],*) Graphics[{Text[Style["Level " <> ToString[level], White, FontSize->textSize], environmentSize/2]}](*,Green,Point[enemyDestination]*)]]
+	Dynamic[Show[drawPlayer[], drawAllAliens[], drawWarpField[], drawExplosion[], drawParticles[], drawText[](*ListPlot[playerPath,PlotStyle->Orange],*) (*,Green,Point[enemyDestination]*)]]
 	}]
 ]
 
+drawText[] := Module[
+	{textList = {}, i},
+	For[i = 1, i <= Length[textObjects], i++,
+		AppendTo[textList, Opacity[textObjects[[i]][[textOpacity]]]];
+		AppendTo[textList, Text[Style[textObjects[[i]][[textValue]], textObjects[[i]][[textColor]], FontSize->textObjects[[i]][[textSize]]], textObjects[[i]][[textCenter]]]]
+	];
+	Return[Graphics[textList]]
+]
+
 incrementAnimations[level_] := Module[
-	{},
+	{i},
 	incrementTextSize[];
-	incrementWarpField[level];
+	warpAnimation = incrementBurst[warpAnimation, level];
 	incrementParticles[];
+	For[i = 1, i <= 10, i++,
+		explosionAnimation[[i]] = incrementBurst[explosionAnimation[[i]], 0];
+	]
 ]
 
 incrementTextSize[]:=Module[
-	{},
-	textSize += textIncrement;
-	If[textSize > 40,
-		textSize = 40;
-		textIncrement = -textIncrement,
-		If[textSize < 0,
-			textSize = 0;
-			textIncrement = 0
+	{i},
+	For[i = 1, i <= Length[textObjects], i++,
+		textObjects[[i]][[textSize]] += textObjects[[i]][[textIncrement]];
+		If[textObjects[[i]][[textSize]] > textObjects[[i]][[textMax]],
+			textObjects[[i]][[textSize]] = textObjects[[i]][[textMax]];
+			If[textObjects[[i]][[textBounce]],
+				textObjects[[i]][[textIncrement]] = -textObjects[[i]][[textIncrement]],
+				textObjects[[i]][[textIncrement]] = 0
+			],
+			If[textObjects[[i]][[textSize]] < 0,
+				textObjects[[i]][[textSize]] = 0;
+				textObjects[[i]][[textOpacity]] = 0;
+				textObjects[[i]][[textIncrement]] = 0
+			]
 		]
 	]
+]
+
+incrementBurst[burst_, level_] := Module[
+	{ret = burst},
+	ret[[aniSize]] += ret[[aniIncrement]];
+	If[ret[[aniSize]] > ret[[aniMax]],
+		ret[[aniSize]] = ret[[aniMax]];
+		ret[[aniIncrement]] = -ret[[aniIncrement]],
+		If[ret[[aniSize]] < 0,
+			ret[[aniSize]] = 0;
+			ret[[aniIncrement]] = 0;
+			ret[[aniOpacity]] = 0;
+			If[level > 0,
+				If[level == 1, 
+					spawnNewAlien[nextAlienPos, 2],
+					spawnNewAlien[nextAlienPos, 1]
+				]
+			]
+		]
+	];
+	Return[ret]
 ]
 
 incrementWarpField[level_] := Module[
@@ -145,7 +197,14 @@ drawParticles[] := Module[
 	Return[Graphics[imageList]];
 ]
 
-(*drawExplosion[] := Graphics[{Opacity[*)
+drawExplosion[] := Module[
+	{i, list = {Opacity[explosionAnimation[[1]][[aniOpacity]]]}},
+	For[i = 1, i <= numParticles, i++,
+		AppendTo[list, RandomChoice[{Red, Orange}]];
+		AppendTo[list, Disk[parPos[[i]], explosionAnimation[[i]][[aniSize]]]]
+	];
+	Return[Graphics[list]]
+]
 
 drawWarpField[] := Graphics[{Opacity[warpAnimation[[aniOpacity]]], Magenta, Circle[warpAnimation[[aniCenter]], warpRadius]}]
 

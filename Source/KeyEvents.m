@@ -43,7 +43,6 @@ mapKeyDown[code_]:=Module[
 	{},
 	Switch[code,
 		KeyEvent`VKUESCAPE,
-			destroyFrame[];
 			If[gameOver,
 				SpaceChase`mainMenu[],
 				SpaceChase`continueMenu[]
@@ -79,9 +78,11 @@ initFrame[]:=Module[
 	initListener[];
 	frame=JavaNew["com.wolfram.jlink.MathFrame"];
 	frame@addKeyListener[listener];
-	JavaShow[frame]
+	showFrame[];
 	(*ShowJavaConsole[];*)
 ]
+
+showFrame[] := JavaShow[frame]
 
 destroyFrame[]:=Module[
 	{},

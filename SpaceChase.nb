@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      1218,         46]
-NotebookOptionsPosition[       944,         31]
-NotebookOutlinePosition[      1322,         48]
-CellTagsIndexPosition[      1279,         45]
+NotebookDataLength[      1445,         50]
+NotebookOptionsPosition[      1170,         35]
+NotebookOutlinePosition[      1548,         52]
+CellTagsIndexPosition[      1505,         49]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21,13 +21,17 @@ Notebook[{
 Cell[BoxData[{
  RowBox[{
   RowBox[{"SetDirectory", "[", 
-   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
-  ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], " ", "<>", " ", 
+    "\"\<Source\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"<<", " ", "SpaceChase`"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{"SpaceChase", "[", "]"}]}], "Input",
  CellChangeTimes->{{3.6069577648623123`*^9, 3.606957781501004*^9}, {
-  3.607554404427359*^9, 3.607554404603389*^9}}]
+   3.607554404427359*^9, 3.607554404603389*^9}, {3.608812053081092*^9, 
+   3.608812100723094*^9}, 3.608812140328506*^9, 3.608819155452251*^9, {
+   3.608819598717794*^9, 3.608819600188032*^9}},
+ EmphasizeSyntaxErrors->True]
 },
 WindowSize->{873, 808},
 WindowMargins->{{Automatic, 72}, {Automatic, 332}},
@@ -47,7 +51,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 383, 9, 63, "Input"]
+Cell[557, 20, 609, 13, 63, "Input"]
 }
 ]
 *)
