@@ -109,9 +109,15 @@ loadImages[] := Module[
 drawScene[]:=DynamicModule[
 	{},
 	Overlay[{background,
-	Dynamic[Show[drawPlayer[], drawAllAliens[], drawWarpField[], drawExplosion[], drawParticles[], drawText[](*ListPlot[playerPath,PlotStyle->Orange],*) (*,Green,Point[enemyDestination]*)]]
+	Dynamic[Show[drawPlayer[],(* drawPlayerPath[],*) drawAllAliens[], drawWarpField[], drawExplosion[], drawParticles[], drawText[](*ListPlot[playerPath,PlotStyle->Orange],*) (*,Green,Point[enemyDestination]*)]]
 	}]
 ]
+
+drawPlayerPath[] := ListPlot[playerPath, PlotStyle->{Blue, PointSize[Medium]}](*, Graphics[ListPlot[playerPath,PlotStyle->Green]]}*)
+
+
+
+
 
 drawText[] := Module[
 	{textList = {}, i},

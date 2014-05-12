@@ -8,6 +8,7 @@ spawnNewAlien
 randomAlienPos
 deleteAlien
 
+playerPath
 numAliens
 alienPos
 alienRot
@@ -20,6 +21,7 @@ Begin["Private`"]
 
 initAliens[] := Module[
 	{i},
+	playerPath = {{0,0}};
 	numAliens = 0;
 	alienMode = {};
 	alienPos = {};
@@ -61,7 +63,10 @@ randomAlienPos[] := {RandomInteger[{0, environmentSize[[1]]}], RandomInteger[{0,
 
 updateAliens[] := Module[
 	{i},
-		playerPath = futurePath[];
+		If[!gameOver,
+			playerPath = futurePath[],
+			playerPath = {{0,0}}
+		];
 		updateAIVectors[];
 
 	For[i = 1, i <= numAliens, i++,
@@ -72,11 +77,11 @@ updateAliens[] := Module[
 
 futurePath[] := Module[
 	{i, v = playerVel, p = playerPos, a = playerAcc, retList = {}},
-	For[i = 1, i <= 30, i++,
+	For[i = 1, i <= 100, i++,
 		AppendTo[retList, p = Mod[p + (v += a), environmentSize]];
 	];
 	
-	For[i = 1, i <= 100, i++,
+	For[i = 1, i <= 0, i++,
 		AppendTo[retList, p = Mod[p + v, environmentSize]];
 	];
 	Return[retList]
