@@ -2,11 +2,11 @@
 
 BeginPackage["Player`", {"Environment`"}]
 
-initPlayer
-updatePlayer
-accelerate
-rotateLeft
-rotateRight
+initPlayer::usage="initPlayer[environmentSize] initializes all player attributes, scaled with environmentSize."
+updatePlayer::usage="updatePlayer[] increments all player attributes for one frame."
+accelerate::usage="accelerate[] sets the acceleration flag for player."
+rotateLeft::usage="rotateLeft[] sets the left rotation flag for player."
+rotateRight::usage="rotateRight[] sets the right rotation flag for player."
 
 playerPos
 playerVel
@@ -19,6 +19,8 @@ Begin["Private`"]
 
 initPlayer[environmentSize_] := Module[
 	{},
+	(*Initialize player attributes with default values.*)
+
 	playerPos = environmentSize / 2;
 	playerVel = {0, 0};
 	playerAcc = {0, 0};
@@ -31,6 +33,12 @@ initPlayer[environmentSize_] := Module[
 
 updatePlayer[] := Module[
 	{},
+	(*Update player attributes for one frame.*)
+
+	(*playerAccelerating flag is set asynchronously by the
+		key event listener. This flag serves as a buffer so
+		the player's acceleration vector is updated
+		synchronously with the game loop.*)
 	If[playerAccelerating,
 		playerAcc = {playerSpeed * Cos[playerRot], playerSpeed * Sin[playerRot]},
 		playerAcc = {0,0}

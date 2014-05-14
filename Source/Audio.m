@@ -1,10 +1,10 @@
 (* ::Package:: *)
 
-BeginPackage["Audio`", {"Parallel`"}]
+BeginPackage["Audio`"]
 
-importSounds
-playExplosion
-playWarp
+importSounds::usage="importSounds[] imports all audio files used in Space Chase."
+playExplosion::usage="playExplosion[] plays the explosion sound effect."
+playWarp::usage="playWarp[] plays the warp-in sound effect."
 
 Begin["Private`"]
 

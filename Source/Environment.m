@@ -2,6 +2,7 @@
 
 BeginPackage["Environment`"]
 
+showPlayerPath
 windowSize
 environmentSize
 environmentScale
@@ -21,6 +22,13 @@ textIncrement
 gameOver
 
 Begin["Private`"]
+
+(*These are all variables intended to be used globally (some of them
+	may belong elsewhere for the sake of good design, but got sloppily
+	left behind as the code evolved over the course of the project).*)
+
+(*Set this to true to view the player's path during gameplay.*)
+showPlayerPath = True;
 
 windowSize = {800, 600};
 environmentScale = 3;
